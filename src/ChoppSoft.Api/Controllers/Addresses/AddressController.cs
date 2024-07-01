@@ -44,6 +44,14 @@ namespace ChoppSoft.Api.Controllers.Addresses
             return ReturnBase(response);
         }
 
+        [HttpPut("{id:Guid}/SetAsDefault")]
+        public async Task<IActionResult> SetAsDefault([FromRoute] Guid id)
+        {
+            var response = await _addressService.SetAsDefault(id);
+
+            return ReturnBase(response);
+        }
+
         [HttpPut("{id:Guid}/Active")]
         public async Task<IActionResult> Active([FromRoute] Guid id)
         {
