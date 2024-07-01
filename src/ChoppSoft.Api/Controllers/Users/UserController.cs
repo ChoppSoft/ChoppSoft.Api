@@ -3,7 +3,6 @@ using ChoppSoft.Domain.Models.Users.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace ChoppSoft.Api.Controllers.Users
 {
