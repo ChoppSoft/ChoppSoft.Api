@@ -8,5 +8,6 @@ namespace ChoppSoft.Domain.Models.Users.Services
         Task<ServiceResult> GetUser(UserDto model);
         Task<ServiceResult> Register(UserDto model);
         Task<ServiceResult> ChangePassword(ChangePasswordDto model);
+        Task<ServiceResult> GetById(Guid id);
     }
 }

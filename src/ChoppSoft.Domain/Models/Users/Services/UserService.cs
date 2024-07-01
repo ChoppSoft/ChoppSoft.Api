@@ -4,6 +4,7 @@ using ChoppSoft.Infra.Auths;
 using ChoppSoft.Infra.Bases;
 using ChoppSoft.Infra.Extensions;
 using System.Net.Mail;
+using System.Reflection;
 
 namespace ChoppSoft.Domain.Models.Users.Services
 {
@@ -22,7 +23,7 @@ namespace ChoppSoft.Domain.Models.Users.Services
             if (user is null)
                 return ServiceResult.Failed("Usuário ou senha inválidos.");
 
-            var token = TokenService.GenerateToken(user.Email, user.Role);
+            var token = TokenService.GenerateToken(user.Id, user.Email, user.Role);
 
             return ServiceResult.Successful(new
             {
@@ -67,6 +68,23 @@ namespace ChoppSoft.Domain.Models.Users.Services
             await _userRepository.Update(user);
 
             return ServiceResult.Successful("Senha alterada com sucesso.");
+        }
+
+        public async Task<ServiceResult> GetById(Guid id)
+        {
+            var user = await _userRepository.GetById(id);
+
+            if(user is null)
+                return ServiceResult.Failed($"Não encontramos um registro para o id '{id}'.");
+
+            return ServiceResult.Successful(new
+            {
+                user.Name,
+                user.Email,
+                user.Role,
+                user.Active,
+                user.CreatedAt
+            });
         }
     }
 }

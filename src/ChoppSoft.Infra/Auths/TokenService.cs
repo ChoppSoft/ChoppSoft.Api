@@ -9,7 +9,7 @@ namespace ChoppSoft.Infra.Auths
     {
         public const string KEY = "$2a$10$d8FYDot2awwGu5WX/mAmpOXKYYKVoVRVwD98LFK3sCv7eIyCxhcny";
 
-        public static (string Token, DateTime Expires) GenerateToken(string email, string role)
+        public static (string Token, DateTime Expires) GenerateToken(Guid id, string email, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(KEY);
@@ -20,6 +20,7 @@ namespace ChoppSoft.Infra.Auths
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, email),
+                    new Claim("user_id", id.ToString()),
                     new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = expires,

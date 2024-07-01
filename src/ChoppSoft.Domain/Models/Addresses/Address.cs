@@ -4,7 +4,7 @@ using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Addresses
 {
-    public class Address : Entity
+    public sealed class Address : Entity
     {
         public Address(Guid customerId, 
                        string street, 

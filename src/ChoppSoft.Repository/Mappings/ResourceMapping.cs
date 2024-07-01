@@ -25,6 +25,8 @@ namespace ChoppSoft.Repository.Mappings
             builder.Property(x => x.Capacity)
                 .IsRequired()
                 .HasColumnType("decimal(10,4)");
+
+            builder.ToTable("Resources");
         }
     }
 }

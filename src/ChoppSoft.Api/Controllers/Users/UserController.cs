@@ -1,7 +1,9 @@
 ﻿using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Domain.Models.Users.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ChoppSoft.Api.Controllers.Users
 {
@@ -31,6 +33,19 @@ namespace ChoppSoft.Api.Controllers.Users
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
         {
             return ReturnBase(await _userService.ChangePassword(model), "Chande password");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value;
+
+            if (userIdClaim == null)
+                return ReturnBase(ServiceResult.Failed("Não foi possível recuperar o códiog do usuário vai token."));
+
+            var response = await _userService.GetById(Guid.Parse(userIdClaim));
+
+            return ReturnBase(response);
         }
     }
 }

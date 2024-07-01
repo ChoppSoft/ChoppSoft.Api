@@ -1,6 +1,8 @@
 ﻿using ChoppSoft.Domain.Models.Addresses;
 using ChoppSoft.Domain.Models.Customers;
+using ChoppSoft.Domain.Models.Products;
 using ChoppSoft.Domain.Models.Resources;
+using ChoppSoft.Domain.Models.Suppliers;
 using ChoppSoft.Domain.Models.Users;
 using ChoppSoft.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,8 @@ namespace ChoppSoft.Repository.Context
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Resource> Resource { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
