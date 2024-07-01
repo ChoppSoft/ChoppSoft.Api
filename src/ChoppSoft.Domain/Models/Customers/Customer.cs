@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Models.Addresses;
 using ChoppSoft.Domain.Models.Customers.Enums;
+using ChoppSoft.Domain.Models.Customers.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Customers
@@ -19,6 +20,8 @@ namespace ChoppSoft.Domain.Models.Customers
             PhoneNumber = phoneNumber;
             Email = email;
             DateOfBirth = dateOfBirth;
+
+            Addresses = new List<Address>();
         }
 
         public Customer() { }
@@ -31,5 +34,15 @@ namespace ChoppSoft.Domain.Models.Customers
         public DateTime DateOfBirth { get; private set; }
 
         public ICollection<Address> Addresses { get; set; }
+
+        internal void Update(CustomerDto dto)
+        {
+            Name = dto.name;
+            Document = dto.document;
+            DocumentType = dto.documenttype;
+            PhoneNumber = dto.phonenumber;
+            Email = dto.email;
+            DateOfBirth = dto.dateofbirth;
+        }
     }
 }

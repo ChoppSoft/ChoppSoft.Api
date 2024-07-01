@@ -15,21 +15,17 @@ namespace ChoppSoft.Api.Controllers.Customers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
         {
+            var response = await _customerService.GetAll(page, pageSize);
 
-            //var records = await _personAplic.GetAll(page, pageSize);
-
-            //return records.Success ? Ok(records) : BadRequest(records);
-            return Ok();
+            return ReturnBase(response);
         }
 
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            //var record = await _personAplic.GetById(id);
+            var response = await _customerService.GetById(id);
 
-
-            //return record.Success ? Ok(record) : NotFound();
-            return Ok();
+            return ReturnBase(response);
         }
 
         [HttpPost]
@@ -41,30 +37,27 @@ namespace ChoppSoft.Api.Controllers.Customers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id/*, [FromBody] ClientDto dto*/)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] CustomerDto dto)
         {
-            //var record = await _personAplic.Update(id, dto);
+            var response = await _customerService.Update(id, dto);
 
-            //return record.Success ? Ok(record) : BadRequest(record);
-            return Ok();
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/Active")]
-        public async Task<IActionResult> Active([FromRoute] Guid id/*, [FromBody] ClientDto dto*/)
+        public async Task<IActionResult> Active([FromRoute] Guid id)
         {
-            //var record = await _personAplic.Update(id, dto);
+            var response = await _customerService.Active(id);
 
-            //return record.Success ? Ok(record) : BadRequest(record);
-            return Ok();
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/Inactivate")]
-        public async Task<IActionResult> Inactivate([FromRoute] Guid id/*, [FromBody] ClientDto dto*/)
+        public async Task<IActionResult> Inactivate([FromRoute] Guid id)
         {
-            //var record = await _personAplic.Update(id, dto);
+            var response = await _customerService.Inactivate(id);
 
-            //return record.Success ? Ok(record) : BadRequest(record);
-            return Ok();
+            return ReturnBase(response);
         }
     }
 }

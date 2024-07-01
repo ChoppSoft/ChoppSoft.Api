@@ -24,5 +24,73 @@ namespace ChoppSoft.Domain.Models.Customers.Services
                 Message = "Cliente cadastrado com sucesso."
             });
         }
+
+        public async Task<ServiceResult> Update(Guid id, CustomerDto dto)
+        {
+            var customer = await _customerRepository.GetById(id);
+
+            if (customer == null)
+                return ServiceResult.Failed($"Não foi possível encontrar o cliente de código {id}");
+
+            customer.Update(dto);
+
+            await _customerRepository.Update(customer);
+
+            return ServiceResult.Successful(new
+            {
+                CustomerId = customer.Id,
+                Message = "Cliente atualizado com sucesso."
+            });
+        }
+
+        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        {
+            var customers = await _customerRepository.GetAll(page, pageSize);
+
+            return ServiceResult.Successful(customers);
+        }
+
+        public async Task<ServiceResult> GetById(Guid id)
+        {
+            var customer = await _customerRepository.GetById(id);
+
+            return ServiceResult.Successful(customer);
+        }
+
+        public async Task<ServiceResult> Active(Guid id)
+        {
+            var customer = await _customerRepository.GetById(id);
+
+            if (customer == null)
+                return ServiceResult.Failed($"Não foi possível encontrar o cliente de código {id}");
+
+            customer.Activate();
+
+            await _customerRepository.Update(customer);
+
+            return ServiceResult.Successful(new
+            {
+                CustomerId = customer.Id,
+                Message = "Cliente ativado com sucesso."
+            });
+        }
+
+        public async Task<ServiceResult> Inactivate(Guid id)
+        {
+            var customer = await _customerRepository.GetById(id);
+
+            if (customer == null)
+                return ServiceResult.Failed($"Não foi possível encontrar o cliente de código {id}");
+
+            customer.Disable();
+
+            await _customerRepository.Update(customer);
+
+            return ServiceResult.Successful(new
+            {
+                CustomerId = customer.Id,
+                Message = "Cliente desabilitado com sucesso."
+            });
+        }
     }
 }
