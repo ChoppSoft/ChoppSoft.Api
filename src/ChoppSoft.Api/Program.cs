@@ -90,10 +90,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAny");
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("AllowAny");
 
 app.MapControllers();
 
