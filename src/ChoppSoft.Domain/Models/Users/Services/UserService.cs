@@ -4,7 +4,6 @@ using ChoppSoft.Infra.Auths;
 using ChoppSoft.Infra.Bases;
 using ChoppSoft.Infra.Extensions;
 using System.Net.Mail;
-using System.Reflection;
 
 namespace ChoppSoft.Domain.Models.Users.Services
 {
