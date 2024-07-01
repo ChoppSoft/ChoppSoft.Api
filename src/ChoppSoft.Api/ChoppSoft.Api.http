@@ -1,0 +1,6 @@
+@ChoppSoft.Api_HostAddress = http://localhost:5204
+
+GET {{ChoppSoft.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

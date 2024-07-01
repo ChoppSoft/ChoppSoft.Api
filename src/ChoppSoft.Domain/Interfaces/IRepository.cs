@@ -1,0 +1,18 @@
+﻿using ChoppSoft.Infra.Bases;
+using System.Linq.Expressions;
+
+namespace ChoppSoft.Domain.Interfaces
+{
+    public interface IRepository<TEntity> : IDisposable where TEntity : Entity
+    {
+        Task Add(TEntity entity);
+        Task<TEntity> GetById(Guid id);
+        Task<IEnumerable<TEntity>> GetAll(int page, int pageSize, params string[] includes);
+        Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25);
+        Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate);
+        Task Update(TEntity entity);
+        Task Delete(Guid id);
+        Task<int> TotalCount();
+        Task<int> SaveChanges();
+    }
+}
