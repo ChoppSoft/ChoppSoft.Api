@@ -1,13 +1,16 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
+using ChoppSoft.Domain.Interfaces.Resources;
 using ChoppSoft.Domain.Interfaces.Users;
 using ChoppSoft.Domain.Models.Addresses.Services;
 using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Locations;
+using ChoppSoft.Domain.Models.Resources.Services;
 using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Repository.Context;
 using ChoppSoft.Repository.Repositories.Addresses;
 using ChoppSoft.Repository.Repositories.Customers;
+using ChoppSoft.Repository.Repositories.Resources;
 using ChoppSoft.Repository.Repositories.Users;
 
 namespace ChoppSoft.Api.Dependencies
@@ -31,6 +34,10 @@ namespace ChoppSoft.Api.Dependencies
             services.AddScoped<IAddressService, AddressService>();
 
             services.AddScoped<IAddressRepository, AddressRepository>();
+
+            services.AddScoped<IResourceService, ResourceService>();
+
+            services.AddScoped<IResourceRepository, ResourceRepository>();
 
             return services;
         }
