@@ -40,7 +40,7 @@ namespace ChoppSoft.Api.Controllers.Users
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value;
 
             if (userIdClaim == null)
-                return ReturnBase(ServiceResult.Failed("Não foi possível recuperar o códiog do usuário vai token."));
+                return ReturnBase(ServiceResult.Failed("Não foi possível recuperar o código do usuário vai token."));
 
             var response = await _userService.GetById(Guid.Parse(userIdClaim));
 
