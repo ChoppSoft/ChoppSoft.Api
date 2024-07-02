@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
+using ChoppSoft.Domain.Interfaces.Deliveries;
 using ChoppSoft.Domain.Interfaces.Orders;
 using ChoppSoft.Domain.Interfaces.Products;
 using ChoppSoft.Domain.Interfaces.Resources;
@@ -15,6 +16,7 @@ using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Repository.Context;
 using ChoppSoft.Repository.Repositories.Addresses;
 using ChoppSoft.Repository.Repositories.Customers;
+using ChoppSoft.Repository.Repositories.Deliveries;
 using ChoppSoft.Repository.Repositories.Orders;
 using ChoppSoft.Repository.Repositories.Products;
 using ChoppSoft.Repository.Repositories.Resources;
@@ -51,6 +53,8 @@ namespace ChoppSoft.Api.Dependencies
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
+            services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
             return services;
         }
