@@ -9,6 +9,12 @@ namespace ChoppSoft.Api.Controllers
     [Route("[controller]")]
     public class ControllerSoftBase : ControllerBase
     {
+        protected IActionResult ReturnBase(ServiceResult result, int totalCount, int totalPages)
+        {
+            return result.Success ? Ok(new { Result = result.Entity, totalCount, totalPages })
+                                  : BadRequest(string.Join("</br>", result.Errors));
+        }
+
         protected IActionResult ReturnBase(ServiceResult result, string message = "")
         {
             return result.Success ? Ok(new { Result = result.Entity, Message = message }) 

@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
+using ChoppSoft.Domain.Interfaces.Orders;
 using ChoppSoft.Domain.Interfaces.Products;
 using ChoppSoft.Domain.Interfaces.Resources;
 using ChoppSoft.Domain.Interfaces.Suppliers;
@@ -14,6 +15,7 @@ using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Repository.Context;
 using ChoppSoft.Repository.Repositories.Addresses;
 using ChoppSoft.Repository.Repositories.Customers;
+using ChoppSoft.Repository.Repositories.Orders;
 using ChoppSoft.Repository.Repositories.Products;
 using ChoppSoft.Repository.Repositories.Resources;
 using ChoppSoft.Repository.Repositories.Suppliers;
@@ -30,28 +32,25 @@ namespace ChoppSoft.Api.Dependencies
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IUserService, UserService>();
-
             services.AddScoped<ILocationService, LocationService>();
 
             services.AddScoped<ICustomerService, CustomerService>();
-
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IAddressService, AddressService>();
-
             services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddScoped<IResourceService, ResourceService>();
-
             services.AddScoped<IResourceRepository, ResourceRepository>();
 
             services.AddScoped<IProductService, ProductService>();
-
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<ISupplierService, SupplierService>();
-
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             return services;
         }

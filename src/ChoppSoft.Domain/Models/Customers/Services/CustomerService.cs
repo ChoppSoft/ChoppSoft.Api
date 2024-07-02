@@ -92,5 +92,13 @@ namespace ChoppSoft.Domain.Models.Customers.Services
                 Message = "Cliente desabilitado com sucesso."
             });
         }
+
+        public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)
+        {
+            var totalCount = await _customerRepository.TotalCount();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+
+            return (totalCount, totalPages);
+        }
     }
 }

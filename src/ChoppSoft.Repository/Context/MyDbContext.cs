@@ -1,5 +1,7 @@
 ﻿using ChoppSoft.Domain.Models.Addresses;
 using ChoppSoft.Domain.Models.Customers;
+using ChoppSoft.Domain.Models.Orders;
+using ChoppSoft.Domain.Models.Orders.Items;
 using ChoppSoft.Domain.Models.Products;
 using ChoppSoft.Domain.Models.Resources;
 using ChoppSoft.Domain.Models.Suppliers;
@@ -24,6 +26,8 @@ namespace ChoppSoft.Repository.Context
         public DbSet<Resource> Resource { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
