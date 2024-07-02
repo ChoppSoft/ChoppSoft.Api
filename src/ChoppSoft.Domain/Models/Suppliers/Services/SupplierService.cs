@@ -91,5 +91,13 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
                 Message = "Fornecedor desabilitado com sucesso."
             });
         }
+
+        public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)
+        {
+            var totalCount = await _supplierRepository.TotalCount();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+
+            return (totalCount, totalPages);
+        }
     }
 }

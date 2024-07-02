@@ -16,8 +16,9 @@ namespace ChoppSoft.Api.Controllers.Resources
         public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
         {
             var response = await _resourceService.GetAll(page, pageSize);
+            var pagination = await _resourceService.GetPagination(pageSize);
 
-            return ReturnBase(response);
+            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]

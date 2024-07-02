@@ -11,5 +11,6 @@ namespace ChoppSoft.Domain.Models.Products.Services
         Task<ServiceResult> GetById(Guid id);
         Task<ServiceResult> Active(Guid id);
         Task<ServiceResult> Inactivate(Guid id);
+        Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize);
     }
 }

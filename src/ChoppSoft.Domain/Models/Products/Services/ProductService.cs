@@ -96,5 +96,13 @@ namespace ChoppSoft.Domain.Models.Products.Services
                 Message = "Produto desabilitado com sucesso."
             });
         }
+
+        public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)
+        {
+            var totalCount = await _productRepository.TotalCount();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+
+            return (totalCount, totalPages);
+        }
     }
 }

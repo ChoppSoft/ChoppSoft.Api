@@ -118,5 +118,13 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
                 Message = "Endereço desabilitado com sucesso."
             });
         }
+
+        public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)
+        {
+            var totalCount = await _addressRepository.TotalCount();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+
+            return (totalCount, totalPages);
+        }
     }
 }
