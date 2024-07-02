@@ -34,6 +34,18 @@ namespace ChoppSoft.Repository.Repositories
             return await _dbSetEntity.FindAsync(id);
         }
 
+        public virtual async Task<TEntity> GetByIdAsync(Guid id, params string[] includes)
+        {
+            IQueryable<TEntity> query = _dbSetEntity;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+        }
+
         public async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25)
         {
             return await _dbSetEntity.AsNoTracking().Where(predicate).ToListAsync();

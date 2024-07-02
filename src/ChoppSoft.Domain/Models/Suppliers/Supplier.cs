@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Infra.Bases;
+﻿using ChoppSoft.Domain.Models.Suppliers.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Suppliers
 {
@@ -21,5 +22,13 @@ namespace ChoppSoft.Domain.Models.Suppliers
         public string ContactName { get; private set; }
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
+
+        public void Update(SupplierDto dto)
+        {
+            Name = dto.name;
+            ContactName = dto.contactname;
+            Email = dto.email;
+            PhoneNumber = dto.phonenumber;
+        }
     }
 }

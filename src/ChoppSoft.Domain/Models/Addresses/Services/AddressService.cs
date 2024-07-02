@@ -53,14 +53,14 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
 
         public async Task<ServiceResult> GetAll(int page, int pageSize)
         {
-            var address = await _addressRepository.GetAll(page, pageSize);
+            var address = await _addressRepository.GetAll(page, pageSize, "Customer");
 
             return ServiceResult.Successful(address);
         }
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var address = await _addressRepository.GetById(id);
+            var address = await _addressRepository.GetByIdAsync(id, "Customer");
 
             return ServiceResult.Successful(address);
         }

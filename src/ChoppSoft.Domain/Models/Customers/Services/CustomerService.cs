@@ -45,14 +45,14 @@ namespace ChoppSoft.Domain.Models.Customers.Services
 
         public async Task<ServiceResult> GetAll(int page, int pageSize)
         {
-            var customers = await _customerRepository.GetAll(page, pageSize);
+            var customers = await _customerRepository.GetAll(page, pageSize, "Addresses");
 
             return ServiceResult.Successful(customers);
         }
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var customer = await _customerRepository.GetById(id);
+            var customer = await _customerRepository.GetByIdAsync(id, "Addresses");
 
             return ServiceResult.Successful(customer);
         }
