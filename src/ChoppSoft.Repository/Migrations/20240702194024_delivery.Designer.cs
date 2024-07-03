@@ -3,6 +3,7 @@ using System;
 using ChoppSoft.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChoppSoft.Repository.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702194024_delivery")]
+    partial class delivery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +67,6 @@ namespace ChoppSoft.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
-                    b.Property<Guid?>("RouteId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -81,8 +81,6 @@ namespace ChoppSoft.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("RouteId");
 
                     b.ToTable("Addresses", (string)null);
                 });
@@ -317,38 +315,6 @@ namespace ChoppSoft.Repository.Migrations
                     b.ToTable("Resources", (string)null);
                 });
 
-            modelBuilder.Entity("ChoppSoft.Domain.Models.Routes.Route", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("Complete")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("Routes", (string)null);
-                });
-
             modelBuilder.Entity("ChoppSoft.Domain.Models.Suppliers.Supplier", b =>
                 {
                     b.Property<Guid>("Id")
@@ -433,10 +399,6 @@ namespace ChoppSoft.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ChoppSoft.Domain.Models.Routes.Route", null)
-                        .WithMany("Stops")
-                        .HasForeignKey("RouteId");
-
                     b.Navigation("Customer");
                 });
 
@@ -489,17 +451,6 @@ namespace ChoppSoft.Repository.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("ChoppSoft.Domain.Models.Routes.Route", b =>
-                {
-                    b.HasOne("ChoppSoft.Domain.Models.Resources.Resource", "Resource")
-                        .WithMany()
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Resource");
-                });
-
             modelBuilder.Entity("ChoppSoft.Domain.Models.Suppliers.Supplier", b =>
                 {
                     b.HasOne("ChoppSoft.Domain.Models.Products.Product", null)
@@ -520,11 +471,6 @@ namespace ChoppSoft.Repository.Migrations
             modelBuilder.Entity("ChoppSoft.Domain.Models.Products.Product", b =>
                 {
                     b.Navigation("Suppliers");
-                });
-
-            modelBuilder.Entity("ChoppSoft.Domain.Models.Routes.Route", b =>
-                {
-                    b.Navigation("Stops");
                 });
 #pragma warning restore 612, 618
         }
