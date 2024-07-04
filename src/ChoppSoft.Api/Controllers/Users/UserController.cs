@@ -22,7 +22,7 @@ namespace ChoppSoft.Api.Controllers.Users
         }
 
         [HttpPost("Register")]
-        [AllowAnonymous]
+        [Authorize(Roles = "manager")]
         public async Task<IActionResult> Register([FromBody] UserDto model)
         {
             return ReturnBase(await _userService.Register(model), "Register");
@@ -31,7 +31,7 @@ namespace ChoppSoft.Api.Controllers.Users
         [HttpPost("ChagePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
         {
-            return ReturnBase(await _userService.ChangePassword(model), "Chande password");
+            return ReturnBase(await _userService.ChangePassword(model), "Change password");
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace ChoppSoft.Api.Controllers.Users
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value;
 
             if (userIdClaim == null)
-                return ReturnBase(ServiceResult.Failed("Não foi possível recuperar o código do usuário vai token."));
+                return ReturnBase(ServiceResult.Failed("Não foi possível recuperar o código do usuário via token."));
 
             var response = await _userService.GetById(Guid.Parse(userIdClaim));
 

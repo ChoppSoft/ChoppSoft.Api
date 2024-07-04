@@ -1,9 +1,12 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
 using ChoppSoft.Domain.Interfaces.Deliveries;
+using ChoppSoft.Domain.Interfaces.Feedbacks;
 using ChoppSoft.Domain.Interfaces.Orders;
+using ChoppSoft.Domain.Interfaces.Payments;
 using ChoppSoft.Domain.Interfaces.Products;
 using ChoppSoft.Domain.Interfaces.Resources;
+using ChoppSoft.Domain.Interfaces.Routes;
 using ChoppSoft.Domain.Interfaces.Suppliers;
 using ChoppSoft.Domain.Interfaces.Users;
 using ChoppSoft.Domain.Models.Addresses.Services;
@@ -17,9 +20,12 @@ using ChoppSoft.Repository.Context;
 using ChoppSoft.Repository.Repositories.Addresses;
 using ChoppSoft.Repository.Repositories.Customers;
 using ChoppSoft.Repository.Repositories.Deliveries;
+using ChoppSoft.Repository.Repositories.Feedbacks;
 using ChoppSoft.Repository.Repositories.Orders;
+using ChoppSoft.Repository.Repositories.Payments;
 using ChoppSoft.Repository.Repositories.Products;
 using ChoppSoft.Repository.Repositories.Resources;
+using ChoppSoft.Repository.Repositories.Routes;
 using ChoppSoft.Repository.Repositories.Suppliers;
 using ChoppSoft.Repository.Repositories.Users;
 
@@ -55,6 +61,12 @@ namespace ChoppSoft.Api.Dependencies
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+            services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+
+            services.AddScoped<IRouteRepository, RouteRepository>();
 
             return services;
         }

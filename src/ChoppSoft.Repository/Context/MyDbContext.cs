@@ -1,11 +1,17 @@
 ﻿using ChoppSoft.Domain.Models.Addresses;
 using ChoppSoft.Domain.Models.Customers;
+using ChoppSoft.Domain.Models.Deliveries;
+using ChoppSoft.Domain.Models.Feedbacks;
+using ChoppSoft.Domain.Models.Inventories;
 using ChoppSoft.Domain.Models.Orders;
 using ChoppSoft.Domain.Models.Orders.Items;
+using ChoppSoft.Domain.Models.Payments;
 using ChoppSoft.Domain.Models.Products;
 using ChoppSoft.Domain.Models.Resources;
+using ChoppSoft.Domain.Models.Routes;
 using ChoppSoft.Domain.Models.Suppliers;
 using ChoppSoft.Domain.Models.Users;
+using ChoppSoft.Domain.Models.Warehouses;
 using ChoppSoft.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +34,13 @@ namespace ChoppSoft.Repository.Context
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Delivery> Delivery { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<Feedback> Feedback { get; set; }
+        public DbSet<Route> Route { get; set; }
+        public DbSet<Warehouse> Warehouse { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

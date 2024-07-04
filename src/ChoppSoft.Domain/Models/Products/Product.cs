@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Models.Products.Services.Dtos;
 using ChoppSoft.Domain.Models.Suppliers;
+using ChoppSoft.Domain.Models.Warehouses;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Products
@@ -28,7 +29,9 @@ namespace ChoppSoft.Domain.Models.Products
         public string Brand { get; private set; }
         public double Capacity { get; private set; }
         public decimal Price { get; private set; }
+        public Guid? WarehouseId { get; private set; }
 
+        public Warehouse Warehouse { get; private set; }
         public ICollection<Supplier> Suppliers { get; private set; }
 
         public void Update(ProductDto dto)

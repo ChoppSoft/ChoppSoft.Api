@@ -29,7 +29,7 @@ namespace ChoppSoft.Domain.Models.Routes
 
         public void AddStops(ICollection<Address> addresses)
         {
-            foreach (var address in addresses)
+            foreach (var address in addresses) 
             {
                 AddStop(address);
             }
