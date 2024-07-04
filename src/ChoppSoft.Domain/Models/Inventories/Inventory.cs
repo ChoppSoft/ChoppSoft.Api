@@ -9,8 +9,7 @@ namespace ChoppSoft.Domain.Models.Inventories
     {
         public Inventory(Guid productId, 
                          Guid warehouseId, 
-                         double quantity, 
-                         DateTime lastUpdated)
+                         double quantity)
         {
             ProductId = productId;
             WarehouseId = warehouseId;
