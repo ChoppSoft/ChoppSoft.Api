@@ -104,5 +104,10 @@ namespace ChoppSoft.Domain.Models.Resources.Services
 
             return (totalCount, totalPages);
         }
+
+        public void Dispose()
+        {
+            _resourceRepository?.Dispose();
+        }
     }
 }

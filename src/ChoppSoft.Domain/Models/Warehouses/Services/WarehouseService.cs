@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Interfaces.Warehouses;
+﻿using ChoppSoft.Domain.Interfaces.Suppliers;
+using ChoppSoft.Domain.Interfaces.Warehouses;
 using ChoppSoft.Domain.Models.Warehouses;
 using ChoppSoft.Domain.Models.Warehouses.Services.Dtos;
 using ChoppSoft.Infra.Bases;
@@ -53,7 +54,7 @@ namespace ChoppSoft.Domain.Models.Warehouses.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var warehouse = await _warehouseRepository.GetById(id, "Products");
+            var warehouse = await _warehouseRepository.GetByIdAsync(id, "Products");
 
             return ServiceResult.Successful(warehouse);
         }
@@ -100,6 +101,11 @@ namespace ChoppSoft.Domain.Models.Warehouses.Services
             var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
 
             return (totalCount, totalPages);
+        }
+
+        public void Dispose()
+        {
+            _warehouseRepository?.Dispose();
         }
     }
 }

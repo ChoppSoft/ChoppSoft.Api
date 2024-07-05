@@ -61,5 +61,10 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
                 Message = "Pedido atualizado com sucesso."
             });
         }
+
+        public void Dispose()
+        {
+            _orderRepository?.Dispose();
+        }
     }
 }

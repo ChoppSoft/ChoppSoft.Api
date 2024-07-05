@@ -3,7 +3,7 @@ using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Inventories.Services
 {
-    public interface IInventoryService
+    public interface IInventoryService : IDisposable
     {
         Task<ServiceResult> Create(InventoryDto dto);
         Task<ServiceResult> Update(Guid id, InventoryDto dto);

@@ -56,7 +56,7 @@ namespace ChoppSoft.Domain.Models.Products.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var product = await _productRepository.GetById(id, "Suppliers");
+            var product = await _productRepository.GetByIdAsync(id, "Suppliers");
 
             return ServiceResult.Successful(product);
         }
@@ -103,6 +103,11 @@ namespace ChoppSoft.Domain.Models.Products.Services
             var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
 
             return (totalCount, totalPages);
+        }
+
+        public void Dispose()
+        {
+            _productRepository?.Dispose();
         }
     }
 }

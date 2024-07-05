@@ -130,5 +130,10 @@ namespace ChoppSoft.Domain.Models.Users.Services
                 user.CreatedAt
             }));
         }
+
+        public void Dispose()
+        {
+            _userRepository?.Dispose();
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var inventory = await _inventoryRepository.GetById(id, "Product", "Warehouse");
+            var inventory = await _inventoryRepository.GetByIdAsync(id, "Product", "Warehouse");
 
             return ServiceResult.Successful(inventory);
         }
@@ -106,6 +106,11 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
             var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
 
             return (totalCount, totalPages);
+        }
+
+        public void Dispose()
+        {
+            _inventoryRepository?.Dispose();
         }
     }
 }

@@ -3,7 +3,7 @@ using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Customers.Services
 {
-    public interface ICustomerService
+    public interface ICustomerService : IDisposable
     {
         Task<ServiceResult> Create(CustomerDto customer);
         Task<ServiceResult> Update(Guid id, CustomerDto dto);

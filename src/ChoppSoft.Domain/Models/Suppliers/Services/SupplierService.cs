@@ -99,5 +99,10 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
 
             return (totalCount, totalPages);
         }
+
+        public void Dispose()
+        {
+            _supplierRepository?.Dispose();
+        }
     }
 }

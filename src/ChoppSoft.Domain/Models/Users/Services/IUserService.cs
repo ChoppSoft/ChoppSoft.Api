@@ -3,7 +3,7 @@ using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Users.Services
 {
-    public interface IUserService
+    public interface IUserService : IDisposable
     {
         Task<ServiceResult> GetUser(UserDto model);
         Task<ServiceResult> Register(UserDto model);

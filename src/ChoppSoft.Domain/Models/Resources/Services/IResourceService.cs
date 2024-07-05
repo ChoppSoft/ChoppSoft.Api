@@ -3,7 +3,7 @@ using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Resources.Services
 {
-    public interface IResourceService
+    public interface IResourceService : IDisposable
     {
         Task<ServiceResult> Create(ResourceDto dto);
         Task<ServiceResult> Update(Guid id, ResourceDto dto);

@@ -1,4 +1,5 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
+using ChoppSoft.Domain.Interfaces.Customers;
 using ChoppSoft.Domain.Models.Addresses.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 
@@ -7,9 +8,12 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
     public class AddressService : IAddressService
     {
         private readonly IAddressRepository _addressRepository;
-        public AddressService(IAddressRepository addressRepository)
+        private readonly ICustomerRepository _customerRepository;
+        public AddressService(IAddressRepository addressRepository, 
+                              ICustomerRepository customerRepository)
         {
             _addressRepository = addressRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<ServiceResult> Create(AddressDto dto)
@@ -60,30 +64,29 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var address = await _addressRepository.GetById(id, "Customer");
+            var address = await _addressRepository.GetByIdAsync(id, "Customer");
 
             return ServiceResult.Successful(address);
         }
 
         public async Task<ServiceResult> SetAsDefault(Guid id)
         {
-            var address = await _addressRepository.GetById(id);
+            var address = await _addressRepository.GetByIdAsync(id);
 
-            if (address == null)
+            if (address is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o endereço de código {id}");
 
-            //arrumar aqui para recuperar todos os endereços do cliente
-            var addressesCustomers = address.Customer.Addresses;
+            var addressesCustomer = await _customerRepository.GetByIdAsync(address.CustomerId, "Addresses");
 
-            foreach (var addressCustomer in addressesCustomers)
+            foreach (var addressCustomer in addressesCustomer.Addresses)
             {
                 addressCustomer.SetToNotDefault();
             }
 
-            await _addressRepository.UpdateRange(addressesCustomers);
+            await _addressRepository.UpdateRange(addressesCustomer.Addresses);
 
             address.SetAsDefault();
-
+            //aqui não rolou deu track
             await _addressRepository.Update(address);
 
             return ServiceResult.Successful(new
@@ -135,6 +138,12 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
             var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
 
             return (totalCount, totalPages);
+        }
+
+        public void Dispose()
+        {
+            _addressRepository?.Dispose();
+            _customerRepository?.Dispose();
         }
     }
 }
