@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ChoppSoft.Api.ViewModels;
+using ChoppSoft.Domain.Models.Customers;
 using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Customers.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ namespace ChoppSoft.Api.Controllers.Customers
             var response = await _customerService.GetAll(page, pageSize);
             var pagination = await _customerService.GetPagination(pageSize);
 
-            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
+            return ReturnBase<ICollection<CustomerViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]
@@ -28,7 +30,7 @@ namespace ChoppSoft.Api.Controllers.Customers
         {
             var response = await _customerService.GetById(id);
 
-            return ReturnBase(response);
+            return ReturnBase<CustomerViewModel>(response);
         }
 
         [HttpPost]

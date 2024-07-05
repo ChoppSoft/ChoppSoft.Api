@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Suppliers.Services;
 using ChoppSoft.Domain.Models.Suppliers.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace ChoppSoft.Api.Controllers.Suppliers
             var response = await _supplierService.GetAll(page, pageSize);
             var pagination = await _supplierService.GetPagination(pageSize);
 
-            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
+            return ReturnBase<ICollection<SupplierViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]
@@ -28,7 +29,7 @@ namespace ChoppSoft.Api.Controllers.Suppliers
         {
             var response = await _supplierService.GetById(id);
 
-            return ReturnBase(response);
+            return ReturnBase<SupplierViewModel>(response);
         }
 
         [HttpPost]

@@ -2,6 +2,7 @@
 using ChoppSoft.Domain.Models.Warehouses.Services;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using ChoppSoft.Api.ViewModels;
 
 namespace ChoppSoft.Api.Controllers.Warehouses
 {
@@ -20,7 +21,7 @@ namespace ChoppSoft.Api.Controllers.Warehouses
             var response = await _warehouseService.GetAll(page, pageSize);
             var pagination = await _warehouseService.GetPagination(pageSize);
 
-            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
+            return ReturnBase<ICollection<WarehouseViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]
@@ -28,7 +29,7 @@ namespace ChoppSoft.Api.Controllers.Warehouses
         {
             var response = await _warehouseService.GetById(id);
 
-            return ReturnBase(response);
+            return ReturnBase<WarehouseViewModel>(response);
         }
 
         [HttpPost]

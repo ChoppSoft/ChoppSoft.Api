@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Resources.Services;
 using ChoppSoft.Domain.Models.Resources.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace ChoppSoft.Api.Controllers.Resources
             var response = await _resourceService.GetAll(page, pageSize);
             var pagination = await _resourceService.GetPagination(pageSize);
 
-            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
+            return ReturnBase<ICollection<ResourceViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]
@@ -28,7 +29,7 @@ namespace ChoppSoft.Api.Controllers.Resources
         {
             var response = await _resourceService.GetById(id);
 
-            return ReturnBase(response);
+            return ReturnBase<ResourceViewModel>(response);
         }
 
         [HttpPost]

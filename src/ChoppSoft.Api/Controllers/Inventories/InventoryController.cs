@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Inventories.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace ChoppSoft.Api.Controllers.Inventories
             var response = await _inventoryService.GetAll(page, pageSize);
             var pagination = await _inventoryService.GetPagination(pageSize);
 
-            return ReturnBase(response, pagination.TotalCount, pagination.TotalPages);
+            return ReturnBase<ICollection<InventoryViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
 
         [HttpGet("{id:Guid}")]
@@ -28,7 +29,7 @@ namespace ChoppSoft.Api.Controllers.Inventories
         {
             var response = await _inventoryService.GetById(id);
 
-            return ReturnBase(response);
+            return ReturnBase<InventoryViewModel>(response);
         }
 
         [HttpPost]
