@@ -56,7 +56,7 @@ namespace ChoppSoft.Domain.Models.Products.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var product = await _productRepository.GetByIdAsync(id, "Suppliers");
+            var product = await _productRepository.GetById(id, "Suppliers");
 
             return ServiceResult.Successful(product);
         }

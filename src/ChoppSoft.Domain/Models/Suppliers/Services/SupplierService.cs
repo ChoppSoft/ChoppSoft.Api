@@ -51,7 +51,7 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var supplier = await _supplierRepository.GetByIdAsync(id);
+            var supplier = await _supplierRepository.GetById(id);
 
             return ServiceResult.Successful(supplier);
         }

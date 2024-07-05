@@ -2,7 +2,9 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Addresses.Services;
 using ChoppSoft.Domain.Models.Addresses.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChoppSoft.Api.Controllers.Addresses
 {

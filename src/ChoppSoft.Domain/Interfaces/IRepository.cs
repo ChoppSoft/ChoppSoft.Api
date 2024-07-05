@@ -7,7 +7,7 @@ namespace ChoppSoft.Domain.Interfaces
     {
         Task Add(TEntity entity);
         Task<TEntity> GetById(Guid id);
-        Task<TEntity> GetByIdAsync(Guid id, params string[] includes);
+        Task<TEntity> GetById(Guid id, params string[] includes);
         Task<ICollection<TEntity>> GetAll(int page, int pageSize, params string[] includes);
         Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25);
         Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate);

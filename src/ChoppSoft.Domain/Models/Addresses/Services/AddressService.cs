@@ -60,7 +60,7 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var address = await _addressRepository.GetByIdAsync(id, "Customer");
+            var address = await _addressRepository.GetById(id, "Customer");
 
             return ServiceResult.Successful(address);
         }
@@ -72,6 +72,7 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
             if (address == null)
                 return ServiceResult.Failed($"Não foi possível encontrar o endereço de código {id}");
 
+            //arrumar aqui para recuperar todos os endereços do cliente
             var addressesCustomers = address.Customer.Addresses;
 
             foreach (var addressCustomer in addressesCustomers)

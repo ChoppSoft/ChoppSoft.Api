@@ -52,7 +52,7 @@ namespace ChoppSoft.Domain.Models.Customers.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var customer = await _customerRepository.GetByIdAsync(id, "Addresses");
+            var customer = await _customerRepository.GetById(id, "Addresses");
 
             return ServiceResult.Successful(customer);
         }

@@ -34,7 +34,7 @@ namespace ChoppSoft.Repository.Repositories
             return await _dbSetEntity.FindAsync(id);
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(Guid id, params string[] includes)
+        public virtual async Task<TEntity> GetById(Guid id, params string[] includes)
         {
             IQueryable<TEntity> query = _dbSetEntity;
 
