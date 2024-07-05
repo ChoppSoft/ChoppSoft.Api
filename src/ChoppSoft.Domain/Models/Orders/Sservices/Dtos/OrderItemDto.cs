@@ -2,7 +2,6 @@
 {
     public record OrderItemDto(Guid orderid,
                                Guid productid,
-                               double quantity,
-                               decimal unitprice,
-                               decimal totalprice);    
+                               decimal quantity,
+                               decimal unitprice);    
 }

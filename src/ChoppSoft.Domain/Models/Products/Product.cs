@@ -10,7 +10,7 @@ namespace ChoppSoft.Domain.Models.Products
         public Product(string identifier, 
                        string description, 
                        string brand, 
-                       double capacity, 
+                       decimal capacity, 
                        decimal price)
         {
             Identifier = identifier;
@@ -27,7 +27,7 @@ namespace ChoppSoft.Domain.Models.Products
         public string Identifier { get; private set; }
         public string Description { get; private set; }
         public string Brand { get; private set; }
-        public double Capacity { get; private set; }
+        public decimal Capacity { get; private set; }
         public decimal Price { get; private set; }
         public Guid? WarehouseId { get; private set; }
 

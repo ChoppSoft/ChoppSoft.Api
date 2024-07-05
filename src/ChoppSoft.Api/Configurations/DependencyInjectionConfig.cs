@@ -15,6 +15,7 @@ using ChoppSoft.Domain.Models.Addresses.Services;
 using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Locations;
+using ChoppSoft.Domain.Models.Orders.Sservices;
 using ChoppSoft.Domain.Models.Products.Services;
 using ChoppSoft.Domain.Models.Resources.Services;
 using ChoppSoft.Domain.Models.Suppliers.Services;
@@ -64,6 +65,7 @@ namespace ChoppSoft.Api.Configurations
             services.AddScoped<ISupplierRepository, SupplierRepository>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();

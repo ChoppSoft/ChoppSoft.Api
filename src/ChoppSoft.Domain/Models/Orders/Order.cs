@@ -9,14 +9,12 @@ namespace ChoppSoft.Domain.Models.Orders
     public sealed class Order : Entity
     {
         public Order(Guid customerId, 
-                     DateTime? deliveryDate, 
-                     EnumOrderStatus status, 
-                     decimal totalAmount)
+                     DateTime? deliveryDate)
         {
             CustomerId = customerId;
             DeliveryDate = deliveryDate;
-            Status = status;
-            TotalAmount = totalAmount;
+            Status = EnumOrderStatus.Pending;
+            Items = new List<OrderItem>();
         }
 
         public Order() { }
@@ -29,12 +27,40 @@ namespace ChoppSoft.Domain.Models.Orders
         public Customer Customer { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
 
-        internal void Update(OrderDto dto)
+        internal void ChangeCustomer(Guid customerId)
         {
-            CustomerId = dto.customerid;
-            DeliveryDate = dto.deliverydate;
-            Status = dto.status;
-            TotalAmount = dto.totalamount;
+            CustomerId = customerId;
+        }
+
+        internal void ChangeDeliveryDate(DateTime? deliveryDate)
+        {
+            DeliveryDate = deliveryDate;
+        }
+
+        internal void AddItem(OrderItem item)
+        {
+            Items.Add(item);
+        }
+
+        internal void RemoveItem(OrderItem item)
+        {
+            Items.Remove(item); 
+        }
+
+        internal void AddItems(ICollection<OrderItem> items)
+        {
+            foreach (var item in items)
+            {
+                AddItem(item);
+            }
+        }
+
+        internal void RemoveItems(ICollection<OrderItem> items)
+        {
+            foreach (var item in items)
+            {
+                RemoveItem(item);
+            }
         }
     }
 }

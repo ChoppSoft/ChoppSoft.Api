@@ -10,7 +10,7 @@ namespace ChoppSoft.Domain.Models.Resources
         public Resource(string description, 
                         string model, 
                         string licensePlate, 
-                        double capacity,
+                        decimal capacity,
                         bool isOwned)
         {
             Description = description;
@@ -23,7 +23,7 @@ namespace ChoppSoft.Domain.Models.Resources
         public string Description { get; private set; }
         public string Model { get; private set; }
         public string LicensePlate { get; private set; }
-        public double Capacity { get; private set; }
+        public decimal Capacity { get; private set; }
         public bool IsOwned { get; private set; } = true;
 
         internal void Update(ResourceDto dto)

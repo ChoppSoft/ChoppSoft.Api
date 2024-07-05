@@ -43,7 +43,7 @@ namespace ChoppSoft.Domain.Models.Products.Services
             return ServiceResult.Successful(new
             {
                 ProductId = product.Id,
-                Message = "`Produto atualizado com sucesso."
+                Message = "Produto atualizado com sucesso."
             });
         }
 

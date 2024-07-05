@@ -9,7 +9,7 @@ namespace ChoppSoft.Domain.Models.Inventories
     {
         public Inventory(Guid productId, 
                          Guid warehouseId, 
-                         double quantity)
+                         decimal quantity)
         {
             ProductId = productId;
             WarehouseId = warehouseId;
@@ -21,7 +21,7 @@ namespace ChoppSoft.Domain.Models.Inventories
 
         public Guid ProductId { get; private set; }
         public Guid WarehouseId { get; private set; }
-        public double Quantity { get; private set; }
+        public decimal Quantity { get; private set; }
         public DateTime LastUpdated { get; private set; }
 
         public Product Product { get; private set; }

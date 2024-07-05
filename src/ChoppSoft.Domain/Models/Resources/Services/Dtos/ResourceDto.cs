@@ -3,6 +3,6 @@
     public record ResourceDto(string description,
                               string model,
                               string licenseplate,
-                              double capacity,
+                              decimal capacity,
                               bool isowned);
 }

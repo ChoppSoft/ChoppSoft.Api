@@ -2,5 +2,5 @@
 {
     public record InventoryDto(Guid productid,
                                Guid warehouseid,
-                               double quantity);
+                               decimal quantity);
 }

@@ -3,6 +3,6 @@
     public record ProductDto(string identifier,
                              string description,
                              string brand,
-                             double capacity,
+                             decimal capacity,
                              decimal price);
 }
