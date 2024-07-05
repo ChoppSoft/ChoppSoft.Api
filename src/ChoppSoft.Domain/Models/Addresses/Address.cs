@@ -58,5 +58,10 @@ namespace ChoppSoft.Domain.Models.Addresses
         {
             IsDefault = true;
         }
+
+        internal void SetToNotDefault()
+        {
+            IsDefault = false;
+        }
     }
 }

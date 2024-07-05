@@ -27,7 +27,7 @@ namespace ChoppSoft.Domain.Models.Inventories
         public Product Product { get; private set; }
         public Warehouse Warehouse { get; private set; }
 
-        public void Update(InventoryDto dto)
+        internal void Update(InventoryDto dto)
         {
             ProductId = dto.productid;
             WarehouseId = dto.warehouseid;

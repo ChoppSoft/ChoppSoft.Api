@@ -23,7 +23,7 @@ namespace ChoppSoft.Domain.Models.Suppliers
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
 
-        public void Update(SupplierDto dto)
+        internal void Update(SupplierDto dto)
         {
             Name = dto.name;
             ContactName = dto.contactname;

@@ -29,7 +29,7 @@ namespace ChoppSoft.Domain.Models.Feedbacks
         public Customer Customer { get; private set; }
         public Order Order { get; private set; }
 
-        public void update(FeedbackDto dto)
+        internal void update(FeedbackDto dto)
         {
             CustomerId = dto.customerid;
             OrderId = dto.orderid;

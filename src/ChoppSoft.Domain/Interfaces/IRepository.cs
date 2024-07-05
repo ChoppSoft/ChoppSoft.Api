@@ -12,6 +12,7 @@ namespace ChoppSoft.Domain.Interfaces
         Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25);
         Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate);
         Task Update(TEntity entity);
+        Task UpdateRange(ICollection<TEntity> entities);
         Task Delete(Guid id);
         Task<int> TotalCount();
         Task<int> SaveChanges();

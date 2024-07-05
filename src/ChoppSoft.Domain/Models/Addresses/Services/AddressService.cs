@@ -72,6 +72,15 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
             if (address == null)
                 return ServiceResult.Failed($"Não foi possível encontrar o endereço de código {id}");
 
+            var addressesCustomers = address.Customer.Addresses;
+
+            foreach (var addressCustomer in addressesCustomers)
+            {
+                addressCustomer.SetToNotDefault();
+            }
+
+            await _addressRepository.UpdateRange(addressesCustomers);
+
             address.SetAsDefault();
 
             await _addressRepository.Update(address);

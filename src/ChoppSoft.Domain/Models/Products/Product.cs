@@ -34,7 +34,7 @@ namespace ChoppSoft.Domain.Models.Products
         public Warehouse Warehouse { get; private set; }
         public ICollection<Supplier> Suppliers { get; private set; }
 
-        public void Update(ProductDto dto)
+        internal void Update(ProductDto dto)
         {
             Identifier = dto.identifier;
             Description = dto.description;

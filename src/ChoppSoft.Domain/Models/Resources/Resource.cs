@@ -26,7 +26,7 @@ namespace ChoppSoft.Domain.Models.Resources
         public double Capacity { get; private set; }
         public bool IsOwned { get; private set; } = true;
 
-        public void Update(ResourceDto dto)
+        internal void Update(ResourceDto dto)
         {
             Model = dto.model;
             LicensePlate = dto.licenseplate;

@@ -25,9 +25,9 @@ namespace ChoppSoft.Domain.Models.Routes
         public Resource Resource { get; private set; }
         public ICollection<Address> Stops { get; private set; }
 
-        public void AddStop(Address address) => Stops.Add(address);
+        internal void AddStop(Address address) => Stops.Add(address);
 
-        public void AddStops(ICollection<Address> addresses)
+        internal void AddStops(ICollection<Address> addresses)
         {
             foreach (var address in addresses) 
             {
@@ -35,9 +35,9 @@ namespace ChoppSoft.Domain.Models.Routes
             }
         }
 
-        public void IsComplete() => Complete = true;
+        internal void IsComplete() => Complete = true;
 
-        public void update(RouteDto dto)
+        internal void update(RouteDto dto)
         {
             Description = dto.description;
             ResourceId = dto.resourceid;

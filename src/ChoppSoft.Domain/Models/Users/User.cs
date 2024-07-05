@@ -19,7 +19,7 @@ namespace ChoppSoft.Domain.Models.Users
         public string Password { get; private set; }
         public string Role { get; private set; } = "employee";
 
-        public string GenerateNewPassword()
+        internal string GenerateNewPassword()
         {
             var chars = "abcdefghjkmnpqrstuvwxyz023456789!@#$%&*";
             var password = string.Empty;
@@ -33,9 +33,14 @@ namespace ChoppSoft.Domain.Models.Users
             return password;
         }
 
-        public void ChangePassword(string newPassword)
+        internal void ChangePassword(string newPassword)
         {
             Password = newPassword.EncodePassword();
+        }
+
+        internal void ChangeRole(string newRole) 
+        {  
+            Role = newRole; 
         }
     }
 }

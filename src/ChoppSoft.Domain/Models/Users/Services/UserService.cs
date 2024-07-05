@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Interfaces.Users;
+﻿using ChoppSoft.Domain.Interfaces.Inventories;
+using ChoppSoft.Domain.Interfaces.Users;
 using ChoppSoft.Domain.Models.Users.Services.Dtos;
 using ChoppSoft.Infra.Auths;
 using ChoppSoft.Infra.Bases;
@@ -78,12 +79,56 @@ namespace ChoppSoft.Domain.Models.Users.Services
 
             return ServiceResult.Successful(new
             {
+                user.Id,
                 user.Name,
                 user.Email,
                 user.Role,
                 user.Active,
                 user.CreatedAt
             });
+        }
+
+        public async Task<ServiceResult> SetAsManager(Guid UserId)
+        {
+            var user = await _userRepository.GetById(UserId);
+
+            if (user is null)
+                return ServiceResult.Failed($"Não encontramos um registro para o id '{UserId}'.");
+
+            user.ChangeRole("manager");
+
+            await _userRepository.Update(user);
+
+            return ServiceResult.Successful("Usuário definido como administrador.");
+        }
+
+        public async Task<ServiceResult> SetAsEmployee(Guid UserId)
+        {
+            var user = await _userRepository.GetById(UserId);
+
+            if (user is null)
+                return ServiceResult.Failed($"Não encontramos um registro para o id '{UserId}'.");
+
+            user.ChangeRole("employee");
+
+            await _userRepository.Update(user);
+
+            return ServiceResult.Successful("Usuário definido como funcionário.");
+        }
+
+        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        {
+            var users = await _userRepository.GetAll(page, pageSize);
+
+            return ServiceResult.Successful(users.Select(user => new
+            {
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Role,
+                user.Active,
+                user.CreatedAt
+            }));
         }
     }
 }

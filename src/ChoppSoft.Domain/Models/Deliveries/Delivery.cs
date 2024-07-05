@@ -32,7 +32,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
         public Order Order { get; private set; }
         public Resource Resource { get; private set; }
 
-        public void Update(DeliveryDto dto)
+        internal void Update(DeliveryDto dto)
         {
             OrderId = dto.orderid;
             ResourceId = dto.resourceid;

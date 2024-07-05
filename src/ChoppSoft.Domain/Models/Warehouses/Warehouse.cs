@@ -21,15 +21,15 @@ namespace ChoppSoft.Domain.Models.Warehouses
 
         public ICollection<Product> Products { get; private set; }
 
-        public void Update(WarehouseDto dto)
+        internal void Update(WarehouseDto dto)
         {
             Description = dto.description;
             Location = dto.location;
         }
 
-        public void AddProduct(Product product) => Products.Add(product);
+        internal void AddProduct(Product product) => Products.Add(product);
 
-        public void AddProducts(ICollection<Product> products)
+        internal void AddProducts(ICollection<Product> products)
         {
             foreach (var product in products)
             {

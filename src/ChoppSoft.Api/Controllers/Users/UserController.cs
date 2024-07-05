@@ -28,10 +28,24 @@ namespace ChoppSoft.Api.Controllers.Users
             return ReturnBase(await _userService.Register(model), "Register");
         }
 
+        [HttpPut("{id:guid}/SetAsManager")]
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> SetAsManager([FromRoute] Guid userId)
+        {
+            return ReturnBase(await _userService.SetAsManager(userId), "SetAsManager");
+        }
+
         [HttpPost("ChagePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
         {
             return ReturnBase(await _userService.ChangePassword(model), "Change password");
+        }
+
+        [HttpGet("List")]
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        {
+            return ReturnBase(await _userService.GetAll(page, pageSize), "GetAll");
         }
 
         [HttpGet]

@@ -68,6 +68,12 @@ namespace ChoppSoft.Repository.Repositories
             await SaveChanges();
         }
 
+        public virtual async Task UpdateRange(ICollection<TEntity> entities)
+        {
+            _dbSetEntity.UpdateRange(entities);
+            await SaveChanges();
+        }
+
         public virtual async Task Delete(Guid id)
         {
             var entity = await _dbSetEntity.FindAsync(id);

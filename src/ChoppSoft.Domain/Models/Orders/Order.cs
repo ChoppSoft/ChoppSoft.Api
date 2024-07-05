@@ -29,7 +29,7 @@ namespace ChoppSoft.Domain.Models.Orders
         public Customer Customer { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
 
-        public void Update(OrderDto dto)
+        internal void Update(OrderDto dto)
         {
             CustomerId = dto.customerid;
             DeliveryDate = dto.deliverydate;
