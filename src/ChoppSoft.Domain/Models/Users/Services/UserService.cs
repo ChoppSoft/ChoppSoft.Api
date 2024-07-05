@@ -1,5 +1,4 @@
-﻿using ChoppSoft.Domain.Interfaces.Inventories;
-using ChoppSoft.Domain.Interfaces.Users;
+﻿using ChoppSoft.Domain.Interfaces.Users;
 using ChoppSoft.Domain.Models.Users.Services.Dtos;
 using ChoppSoft.Infra.Auths;
 using ChoppSoft.Infra.Bases;

@@ -1,6 +1,4 @@
-﻿using ChoppSoft.Domain.Interfaces.Suppliers;
-using ChoppSoft.Domain.Interfaces.Warehouses;
-using ChoppSoft.Domain.Models.Warehouses;
+﻿using ChoppSoft.Domain.Interfaces.Warehouses;
 using ChoppSoft.Domain.Models.Warehouses.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 

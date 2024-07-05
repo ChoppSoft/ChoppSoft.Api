@@ -1,5 +1,4 @@
 ﻿using ChoppSoft.Domain.Interfaces.Orders;
-using ChoppSoft.Domain.Interfaces.Products;
 using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
 using ChoppSoft.Infra.Bases;
 
