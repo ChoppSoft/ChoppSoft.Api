@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Api.Aplications.Locations.Views;
+﻿using AutoMapper;
+using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Locations;
 using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,8 @@ namespace ChoppSoft.Api.Controllers.Locations
     public class LocationController : ControllerSoftBase
     {
         private readonly ILocationService _locationService;
-        public LocationController(ILocationService locationService)
+        public LocationController(IMapper mapper, 
+                                  ILocationService locationService) : base(mapper)
         {
             _locationService = locationService;
         }
@@ -21,7 +23,7 @@ namespace ChoppSoft.Api.Controllers.Locations
             try
             {
                 var response = await _locationService.SearchByZipCode(code);
-                return ReturnBase(ServiceResult.Successful(new LocationResultView(response)));
+                return ReturnBase(ServiceResult.Successful(new LocationViewModel(response)));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Resources.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Resources.Services;
 using ChoppSoft.Domain.Models.Resources.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace ChoppSoft.Api.Controllers.Resources
     public class ResourceController : ControllerSoftBase
     {
         private readonly IResourceService _resourceService;
-        public ResourceController(IResourceService resourceService)
+        public ResourceController(IMapper mapper, 
+                                  IResourceService resourceService) : base(mapper)
         {
             _resourceService = resourceService;
         }

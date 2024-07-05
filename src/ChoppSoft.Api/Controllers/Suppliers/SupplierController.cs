@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Suppliers.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Suppliers.Services;
 using ChoppSoft.Domain.Models.Suppliers.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace ChoppSoft.Api.Controllers.Suppliers
     public class SupplierController : ControllerSoftBase
     {
         private readonly ISupplierService _supplierService;
-        public SupplierController(ISupplierService supplierService)
+        public SupplierController(IMapper mapper,
+                                  ISupplierService supplierService) : base(mapper)
         {
             _supplierService = supplierService;
         }

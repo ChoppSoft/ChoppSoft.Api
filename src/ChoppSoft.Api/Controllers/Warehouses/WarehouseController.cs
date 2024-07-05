@@ -1,13 +1,15 @@
 ﻿using ChoppSoft.Domain.Models.Warehouses.Services.Dtos;
 using ChoppSoft.Domain.Models.Warehouses.Services;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace ChoppSoft.Api.Controllers.Warehouses
 {
     public class WarehouseController : ControllerSoftBase
     {
         private readonly IWarehouseService _warehouseService;
-        public WarehouseController(IWarehouseService warehouseService)
+        public WarehouseController(IMapper mapper, 
+                                   IWarehouseService warehouseService) : base(mapper)
         {
             _warehouseService = warehouseService;
         }

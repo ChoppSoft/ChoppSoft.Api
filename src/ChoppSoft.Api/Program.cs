@@ -1,4 +1,4 @@
-using ChoppSoft.Api.Dependencies;
+using ChoppSoft.Api.Configurations;
 using ChoppSoft.Infra.Auths;
 using ChoppSoft.Repository.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,8 +11,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var key = Encoding.ASCII.GetBytes(TokenService.KEY);
-
-// Add services to the container.
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -77,12 +75,14 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.ResolveDependencies();
-
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.ResolveDependencies();
 
 var app = builder.Build();
 

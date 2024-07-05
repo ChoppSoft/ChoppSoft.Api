@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Customers.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Customers.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace ChoppSoft.Api.Controllers.Customers
     public class CustomerController : ControllerSoftBase
     {
         private readonly ICustomerService _customerService;
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(IMapper mapper, 
+                                  ICustomerService customerService) : base(mapper)
         {
             _customerService = customerService;
         }

@@ -17,7 +17,7 @@ namespace ChoppSoft.Repository.Repositories
             _dbSetEntity = _dbContext.Set<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAll(int page, int pageSize, params string[] includes)
+        public virtual async Task<ICollection<TEntity>> GetAll(int page, int pageSize, params string[] includes)
         {
             IQueryable<TEntity> query = _dbSetEntity;
 
@@ -46,7 +46,7 @@ namespace ChoppSoft.Repository.Repositories
             return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25)
+        public async Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25)
         {
             return await _dbSetEntity.AsNoTracking().Where(predicate).ToListAsync();
         }

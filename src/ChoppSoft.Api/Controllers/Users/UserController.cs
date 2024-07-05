@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Users.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Domain.Models.Users.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,8 @@ namespace ChoppSoft.Api.Controllers.Users
     public class UserController : ControllerSoftBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UserController(IMapper mapper,
+                              IUserService userService) : base(mapper)
         {
             _userService = userService;
         }

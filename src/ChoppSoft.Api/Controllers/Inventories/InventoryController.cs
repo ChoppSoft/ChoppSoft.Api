@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Inventories.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Inventories.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace ChoppSoft.Api.Controllers.Inventories
     public class InventoryController : ControllerSoftBase
     {
         private readonly IInventoryService _inventoryService;
-        public InventoryController(IInventoryService inventoryService)
+        public InventoryController(IMapper mapper,
+                                   IInventoryService inventoryService) : base(mapper)
         {
             _inventoryService = inventoryService;
         }

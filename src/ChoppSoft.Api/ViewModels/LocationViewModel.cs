@@ -1,10 +1,10 @@
 ﻿using ChoppSoft.Domain.Models.Locations.Dtos;
 
-namespace ChoppSoft.Api.Aplications.Locations.Views
+namespace ChoppSoft.Api.ViewModels
 {
-    public class LocationResultView
+    public class LocationViewModel
     {
-        public LocationResultView(ViaCepResultDto dto)
+        public LocationViewModel(ViaCepResultDto dto)
         {
             ZipCode = dto.CEP;
             Street = dto.Logradouro;

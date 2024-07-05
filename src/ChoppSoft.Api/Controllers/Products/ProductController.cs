@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Products.Services;
+﻿using AutoMapper;
+using ChoppSoft.Domain.Models.Products.Services;
 using ChoppSoft.Domain.Models.Products.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,8 @@ namespace ChoppSoft.Api.Controllers.Products
     public class ProductController : ControllerSoftBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        public ProductController(IMapper mapper, 
+                                 IProductService productService) : base(mapper)
         {
             _productService = productService;
         }

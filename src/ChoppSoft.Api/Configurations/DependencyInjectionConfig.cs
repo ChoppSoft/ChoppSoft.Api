@@ -35,7 +35,7 @@ using ChoppSoft.Repository.Repositories.Suppliers;
 using ChoppSoft.Repository.Repositories.Users;
 using ChoppSoft.Repository.Repositories.Warehouses;
 
-namespace ChoppSoft.Api.Dependencies
+namespace ChoppSoft.Api.Configurations
 {
     public static class DependencyInjectionConfig
     {
