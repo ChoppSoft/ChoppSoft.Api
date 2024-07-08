@@ -229,6 +229,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
         public void Dispose()
         {
             _orderRepository?.Dispose();
+            _orderItemRepository?.Dispose();
         }
     }
 }
