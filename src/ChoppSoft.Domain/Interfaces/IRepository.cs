@@ -13,6 +13,7 @@ namespace ChoppSoft.Domain.Interfaces
         Task<ICollection<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25, params string[] includes);
         Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, params string[] includes);
         Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate);
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
         Task Update(TEntity entity);
         Task UpdateRange(ICollection<TEntity> entities);
         Task Delete(Guid id);

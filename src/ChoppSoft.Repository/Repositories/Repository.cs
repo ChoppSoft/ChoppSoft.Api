@@ -75,6 +75,11 @@ namespace ChoppSoft.Repository.Repositories
             return await query.AsNoTracking().Skip((page - 1) * pageSize).Take(pageSize).Where(predicate).ToListAsync();
         }
 
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSetEntity.AsNoTracking().AnyAsync(predicate);
+        }
+
         public virtual async Task Add(TEntity entity)
         {
             _dbSetEntity.Add(entity);

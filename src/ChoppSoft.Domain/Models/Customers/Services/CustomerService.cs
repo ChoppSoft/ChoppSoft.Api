@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Customers;
 using ChoppSoft.Domain.Models.Customers.Services.Dtos;
+using ChoppSoft.Domain.Models.Customers.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Customers.Services
@@ -14,7 +15,15 @@ namespace ChoppSoft.Domain.Models.Customers.Services
 
         public async Task<ServiceResult> Create(CustomerDto dto)
         {
+            async Task<bool> BeUniqueDocumentAsync(string document) => 
+                !(await _customerRepository.AnyAsync(c => c.Document == document));
+            
             var customer = new Customer(dto.name, dto.document, dto.documenttype, dto.phonenumber, dto.email, dto.dateofbirth);
+
+            var validationResult = new CustomerCreateValidator(BeUniqueDocumentAsync).Validate(customer);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _customerRepository.Add(customer);
 
@@ -33,6 +42,11 @@ namespace ChoppSoft.Domain.Models.Customers.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o cliente de código {id}");
 
             customer.Update(dto);
+
+            var validationResult = new CustomerUpdateValidator().Validate(customer);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _customerRepository.Update(customer);
 
