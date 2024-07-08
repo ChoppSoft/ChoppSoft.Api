@@ -14,6 +14,8 @@ namespace ChoppSoft.Domain.Models.Orders
             CustomerId = customerId;
             DeliveryDate = deliveryDate;
             Status = EnumOrderStatus.Pending;
+            Shipped = false;
+            Delivered = false;
             Items = new List<OrderItem>();
         }
 

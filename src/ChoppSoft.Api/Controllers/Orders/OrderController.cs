@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using ChoppSoft.Domain.Models.Orders;
+using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Orders.Sservices;
 using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace ChoppSoft.Api.Controllers.Orders
 {
@@ -23,6 +21,23 @@ namespace ChoppSoft.Api.Controllers.Orders
             var response = await _orderService.Create(dto);
 
             return ReturnBase(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        {
+            var response = await _orderService.GetAll(page, pageSize);
+            var pagination = await _orderService.GetPagination(pageSize);
+
+            return ReturnBase<ICollection<OrderViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var response = await _orderService.GetById(id);
+
+            return ReturnBase<OrderWhitItemsViewModel>(response);
         }
 
         [HttpPut("{id:Guid}/ChangeCustomer")]

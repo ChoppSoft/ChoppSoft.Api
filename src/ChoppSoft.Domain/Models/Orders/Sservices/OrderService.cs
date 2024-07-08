@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Interfaces.Orders;
+﻿using ChoppSoft.Domain.Interfaces.Addresses;
+using ChoppSoft.Domain.Interfaces.Orders;
 using ChoppSoft.Domain.Models.Orders.Items;
 using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
 using ChoppSoft.Infra.Bases;
@@ -14,6 +15,20 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
         {
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
+        }
+
+        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        {
+            var order = await _orderRepository.GetAll(page, pageSize, "Customer");
+
+            return ServiceResult.Successful(order);
+        }
+
+        public async Task<ServiceResult> GetById(Guid id)
+        {
+            var order = await _orderRepository.GetByIdAsync(id, "Customer", "Items");
+
+            return ServiceResult.Successful(order);
         }
 
         public async Task<ServiceResult> Create(OrderDto dto)
@@ -153,6 +168,14 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
                 OrderId = order.Id,
                 Message = "Pedido cancelado com sucesso."
             });
+        }
+
+        public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)
+        {
+            var totalCount = await _orderRepository.TotalCount();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+
+            return (totalCount, totalPages);
         }
 
         public void Dispose()
