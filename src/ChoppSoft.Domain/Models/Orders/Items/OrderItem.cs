@@ -30,7 +30,6 @@ namespace ChoppSoft.Domain.Models.Orders.Items
 
         internal void Update(OrderItemDto dto)
         {
-            OrderId = dto.orderid;
             ProductId = dto.productid;
             Quantity = dto.quantity;
             UnitPrice = dto.unitprice;
