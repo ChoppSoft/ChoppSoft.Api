@@ -13,7 +13,10 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
         }
         public async Task<ServiceResult> Create(SupplierDto dto)
         {
-            var supplier = new Supplier();
+            var supplier = new Supplier(dto.name,
+                                        dto.contactname,
+                                        dto.email,
+                                        dto.phonenumber);
 
             await _supplierRepository.Add(supplier);
 

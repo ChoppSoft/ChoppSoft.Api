@@ -16,5 +16,6 @@ namespace ChoppSoft.Api.ViewModels
         public bool IsDefault { get; set; }
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public bool Active { get; set; }
     }
 }

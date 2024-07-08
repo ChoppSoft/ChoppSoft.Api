@@ -8,5 +8,6 @@
         public string LicensePlate { get; set; }
         public decimal Capacity { get; set; }
         public bool IsOwned { get; set; }
+        public bool Active { get; set; }
     }
 }
