@@ -1,6 +1,7 @@
 ﻿using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
 using ChoppSoft.Domain.Models.Addresses.Services.Dtos;
+using ChoppSoft.Domain.Models.Addresses.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Addresses.Services
@@ -28,6 +29,11 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
                                       dto.postalcode,
                                       dto.country);
 
+            var validationResult = new AddressCreateValidator().Validate(address);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
+
             await _addressRepository.Add(address);
 
             return ServiceResult.Successful(new
@@ -45,6 +51,11 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o endereço de código {id}");
 
             address.Update(dto);
+
+            var validationResult = new AddressUpdateValidator().Validate(address);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _addressRepository.Update(address);
 
