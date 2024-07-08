@@ -2,6 +2,7 @@
 using ChoppSoft.Domain.Models.Orders.Enums;
 using ChoppSoft.Domain.Models.Orders.Items;
 using ChoppSoft.Infra.Bases;
+using ChoppSoft.Infra.Extensions;
 
 namespace ChoppSoft.Domain.Models.Orders
 {
@@ -67,7 +68,7 @@ namespace ChoppSoft.Domain.Models.Orders
 
         internal void Totalizing()
         {
-            TotalAmount = Items.Sum(p => p.TotalPrice);
+            TotalAmount = Items.Sum(p => p.TotalPrice).ToMonetary();
         }
 
         internal void MakeAsConfirmed()

@@ -1,6 +1,7 @@
 ﻿using ChoppSoft.Domain.Models.Orders.Services.Dtos;
 using ChoppSoft.Domain.Models.Products;
 using ChoppSoft.Infra.Bases;
+using ChoppSoft.Infra.Extensions;
 
 namespace ChoppSoft.Domain.Models.Orders.Items
 {
@@ -39,7 +40,7 @@ namespace ChoppSoft.Domain.Models.Orders.Items
 
         internal void Totalizing()
         {
-            TotalPrice = TotalPrice * Quantity;
+            TotalPrice = (TotalPrice * Quantity).ToMonetary();
         }
     }
 }

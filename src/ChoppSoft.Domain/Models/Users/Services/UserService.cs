@@ -28,6 +28,7 @@ namespace ChoppSoft.Domain.Models.Users.Services
             {
                 User = user.Name,
                 Email = user.Email,
+                Role = user.Role,
                 Token = $"Bearer {token.Token}",
                 Expires = token.Expires
             });
