@@ -72,6 +72,8 @@ namespace ChoppSoft.Repository.Repositories
         {
             _dbSetEntity.UpdateRange(entities);
             await SaveChanges();
+
+            _dbContext.ChangeTracker.Clear();
         }
 
         public virtual async Task Delete(Guid id)

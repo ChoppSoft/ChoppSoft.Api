@@ -86,7 +86,7 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
             await _addressRepository.UpdateRange(addressesCustomer.Addresses);
 
             address.SetAsDefault();
-            //aqui não rolou deu track
+            
             await _addressRepository.Update(address);
 
             return ServiceResult.Successful(new
