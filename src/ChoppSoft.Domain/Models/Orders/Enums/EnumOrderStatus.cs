@@ -4,9 +4,7 @@
     {
         Pending = 0,
         Processing = 1,
-        Shipped = 2,
-        Delivered = 3,
-        Confirmed = 4,
-        Cancelled = 5
+        Confirmed = 2,
+        Cancelled = 3
     }
 }

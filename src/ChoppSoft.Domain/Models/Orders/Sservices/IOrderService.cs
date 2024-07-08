@@ -8,5 +8,10 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
         Task<ServiceResult> Create(OrderDto dto);
         Task<ServiceResult> ChangeCustomer(Guid id, OrderCustomerDto dto);
         Task<ServiceResult> ChangeDeliveryDate(Guid id, OrderDeliveryDateDto dto);
+        Task<ServiceResult> AddItems(Guid id, ICollection<OrderItemDto> dtos);
+        Task<ServiceResult> RemoveItems(Guid id, ICollection<OrderItemIdDto> dtos);
+        Task<ServiceResult> Confirm(Guid id);
+        Task<ServiceResult> UndoConfirmation(Guid id);
+        Task<ServiceResult> Cancel(Guid id);
     }
 }

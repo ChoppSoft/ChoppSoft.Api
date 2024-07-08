@@ -46,14 +46,33 @@ namespace ChoppSoft.Repository.Repositories
             return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25)
+        public async Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> predicate, params string[] includes)
         {
-            return await _dbSetEntity.AsNoTracking().Where(predicate).ToListAsync();
+            IQueryable<TEntity> query = _dbSetEntity;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public async Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate)
         {
             return await _dbSetEntity.AsNoTracking().FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<ICollection<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 25, params string[] includes)
+        {
+            IQueryable<TEntity> query = _dbSetEntity;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.AsNoTracking().Skip((page - 1) * pageSize).Take(pageSize).Where(predicate).ToListAsync();
         }
 
         public virtual async Task Add(TEntity entity)

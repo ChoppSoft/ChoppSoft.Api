@@ -2,7 +2,9 @@
 using ChoppSoft.Domain.Models.Orders;
 using ChoppSoft.Domain.Models.Orders.Sservices;
 using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ChoppSoft.Api.Controllers.Orders
 {
@@ -42,43 +44,57 @@ namespace ChoppSoft.Api.Controllers.Orders
         [HttpPut("{id:Guid}/AddItem")]
         public async Task<IActionResult> AddItem([FromRoute] Guid id, [FromBody] OrderItemDto dto)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.AddItems(id, new List<OrderItemDto>() { dto });
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/AddItems")]
         public async Task<IActionResult> AddItems([FromRoute] Guid id, [FromBody] ICollection<OrderItemDto> dtos)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.AddItems(id, dtos);
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/RemoveItem")]
-        public async Task<IActionResult> RemoveItem([FromRoute] Guid id, [FromBody] OrderItemDto dto)
+        public async Task<IActionResult> RemoveItem([FromRoute] Guid id, [FromBody] OrderItemIdDto dto)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.RemoveItems(id, new List<OrderItemIdDto>() { dto });
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/RemoveItems")]
-        public async Task<IActionResult> RemoveItems([FromRoute] Guid id, [FromBody] ICollection<OrderItemDto> dtos)
+        public async Task<IActionResult> RemoveItems([FromRoute] Guid id, [FromBody] ICollection<OrderItemIdDto> dtos)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.RemoveItems(id, dtos);
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/Confirm")]
         public async Task<IActionResult> Confirm([FromRoute] Guid id)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.Confirm(id);
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/UndoConfirmation")]
         public async Task<IActionResult> UndoConfirmation([FromRoute] Guid id)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.UndoConfirmation(id);
+
+            return ReturnBase(response);
         }
 
         [HttpPut("{id:Guid}/Cancel")]
         public async Task<IActionResult> Cancel([FromRoute] Guid id)
         {
-            throw new NotImplementedException();
+            var response = await _orderService.Cancel(id);
+
+            return ReturnBase(response);
         }
     }
 }
