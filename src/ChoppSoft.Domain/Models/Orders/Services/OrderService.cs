@@ -98,7 +98,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
         public async Task<ServiceResult> AddItems(Guid id, ICollection<OrderItemDto> dtos)
         {
-            var order = await _orderRepository.GetById(id);
+            var order = await _orderRepository.GetByIdAsync(id, "Items");
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
@@ -115,6 +115,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
             order.Totalizing();
 
+            await _orderItemRepository.AddRange(order.Items);
             await _orderRepository.Update(order);
 
             return ServiceResult.Successful(new
@@ -126,7 +127,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
         public async Task<ServiceResult> RemoveItems(Guid id, ICollection<OrderItemIdDto> dtos)
         {
-            var order = await _orderRepository.GetById(id);
+            var order = await _orderRepository.GetByIdAsync(id, "Items");
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
@@ -140,6 +141,8 @@ namespace ChoppSoft.Domain.Models.Orders.Services
             var orderItems = await _orderItemRepository.Get(p => orderItemsId.Contains(p.Id));
 
             order.RemoveItems(orderItems);
+
+            await _orderItemRepository.DeleteRange(orderItemsId);
 
             order.Totalizing();
 

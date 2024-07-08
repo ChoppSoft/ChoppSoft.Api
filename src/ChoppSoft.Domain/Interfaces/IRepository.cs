@@ -6,6 +6,7 @@ namespace ChoppSoft.Domain.Interfaces
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
         Task Add(TEntity entity);
+        Task AddRange(ICollection<TEntity> entity);
         Task<TEntity> GetById(Guid id);
         Task<TEntity> GetByIdAsync(Guid id, params string[] includes);
         Task<ICollection<TEntity>> GetAll(int page, int pageSize, params string[] includes);
@@ -15,6 +16,7 @@ namespace ChoppSoft.Domain.Interfaces
         Task Update(TEntity entity);
         Task UpdateRange(ICollection<TEntity> entities);
         Task Delete(Guid id);
+        Task DeleteRange(ICollection<Guid> ids);
         Task<int> TotalCount();
         Task<int> SaveChanges();
     }

@@ -40,7 +40,7 @@ namespace ChoppSoft.Domain.Models.Orders.Items
 
         internal void Totalizing()
         {
-            TotalPrice = (TotalPrice * Quantity).ToMonetary();
+            TotalPrice = (UnitPrice * Quantity).ToMonetary();
         }
     }
 }
