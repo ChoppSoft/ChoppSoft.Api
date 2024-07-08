@@ -28,6 +28,7 @@ namespace ChoppSoft.Domain.Models.Resources
 
         internal void Update(ResourceDto dto)
         {
+            Description = dto.description;
             Model = dto.model;
             LicensePlate = dto.licenseplate;
             Capacity = dto.capacity;
