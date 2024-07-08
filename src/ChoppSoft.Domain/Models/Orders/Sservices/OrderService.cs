@@ -92,6 +92,8 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
                                                           p.quantity,
                                                           p.unitprice)).ToList());
 
+            order.Totalizing();
+
             await _orderRepository.Update(order);
 
             return ServiceResult.Successful(new
@@ -112,6 +114,8 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
             var orderItems = await _orderItemRepository.Get(p => orderItemsId.Contains(p.Id));
 
             order.RemoveItems(orderItems);
+
+            order.Totalizing();
 
             await _orderRepository.Update(order);
 

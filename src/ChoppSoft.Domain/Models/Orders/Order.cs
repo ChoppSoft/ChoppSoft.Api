@@ -67,6 +67,11 @@ namespace ChoppSoft.Domain.Models.Orders
             }
         }
 
+        internal void Totalizing()
+        {
+            TotalAmount = Items.Sum(p => p.TotalPrice);
+        }
+
         internal void MakeAsConfirmed()
         {
             Status = EnumOrderStatus.Confirmed;

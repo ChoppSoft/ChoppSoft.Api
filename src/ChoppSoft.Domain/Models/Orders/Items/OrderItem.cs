@@ -15,6 +15,7 @@ namespace ChoppSoft.Domain.Models.Orders.Items
             ProductId = productId;
             Quantity = quantity;
             UnitPrice = unitPrice;
+            Totalizing();
         }
 
         public OrderItem() { }
@@ -33,6 +34,7 @@ namespace ChoppSoft.Domain.Models.Orders.Items
             ProductId = dto.productid;
             Quantity = dto.quantity;
             UnitPrice = dto.unitprice;
+            Totalizing();
         }
 
         internal void Totalizing()
