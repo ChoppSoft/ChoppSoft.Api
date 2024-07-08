@@ -30,25 +30,13 @@ namespace ChoppSoft.Domain.Models.Orders
         public Customer Customer { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
 
-        internal void ChangeCustomer(Guid customerId)
-        {
-            CustomerId = customerId;
-        }
+        internal void ChangeCustomer(Guid customerId) => CustomerId = customerId;
 
-        internal void ChangeDeliveryDate(DateTime? deliveryDate)
-        {
-            DeliveryDate = deliveryDate;
-        }
+        internal void ChangeDeliveryDate(DateTime? deliveryDate) => DeliveryDate = deliveryDate;
 
-        internal void AddItem(OrderItem item)
-        {
-            Items.Add(item);
-        }
+        internal void AddItem(OrderItem item) => Items.Add(item);
 
-        internal void RemoveItem(OrderItem item)
-        {
-            Items.Remove(item); 
-        }
+        internal void RemoveItem(OrderItem item) => Items.Remove(item);
 
         internal void AddItems(ICollection<OrderItem> items)
         {
@@ -66,54 +54,24 @@ namespace ChoppSoft.Domain.Models.Orders
             }
         }
 
-        internal void Totalizing()
-        {
-            TotalAmount = Items.Sum(p => p.TotalPrice).ToMonetary();
-        }
+        internal void Totalizing() => TotalAmount = Items.Sum(p => p.TotalPrice).ToMonetary();
 
-        internal void MakeAsConfirmed()
-        {
-            Status = EnumOrderStatus.Confirmed;
-        }
+        internal void MakeAsConfirmed() => Status = EnumOrderStatus.Confirmed;
 
-        internal void MakeAsCanceled()
-        {
-            Status = EnumOrderStatus.Cancelled;
-        }
+        internal void MakeAsCanceled() => Status = EnumOrderStatus.Cancelled;
 
-        internal void UndoConfirme()
-        {
-            Status = EnumOrderStatus.Processing;
-        }
+        internal void UndoConfirme() => Status = EnumOrderStatus.Processing;
 
-        internal void MakeAsShipped()
-        {
-            Shipped = true;
-        }
+        internal void MakeAsShipped() => Shipped = true;
 
-        internal void UndoShipped()
-        {
-            Shipped = false;
-        }
+        internal void UndoShipped() => Shipped = false;
 
-        internal void MakeAsDelivered()
-        {
-            Delivered = true;
-        }
+        internal void MakeAsDelivered() => Delivered = true;
 
-        internal void UndoDelivered()
-        {
-            Delivered = false;
-        }
+        internal void UndoDelivered() => Delivered = false;
 
-        internal void MakeAsPaid() 
-        {
-            Paid = true;
-        }
+        internal void MakeAsPaid() => Paid = true;
 
-        internal void UndoPaid()
-        {
-            Paid = false;
-        }
+        internal void UndoPaid() => Paid = false;
     }
 }

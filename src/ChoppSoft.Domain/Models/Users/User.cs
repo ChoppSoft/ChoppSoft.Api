@@ -33,14 +33,8 @@ namespace ChoppSoft.Domain.Models.Users
             return password;
         }
 
-        internal void ChangePassword(string newPassword)
-        {
-            Password = newPassword.EncodePassword();
-        }
+        internal void ChangePassword(string newPassword) => Password = newPassword.EncodePassword();
 
-        internal void ChangeRole(string newRole) 
-        {  
-            Role = newRole; 
-        }
+        internal void ChangeRole(string newRole) => Role = newRole;
     }
 }
