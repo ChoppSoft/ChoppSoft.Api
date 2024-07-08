@@ -1,7 +1,6 @@
 ﻿using ChoppSoft.Domain.Models.Customers;
 using ChoppSoft.Domain.Models.Orders.Enums;
 using ChoppSoft.Domain.Models.Orders.Items;
-using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Orders
@@ -14,8 +13,6 @@ namespace ChoppSoft.Domain.Models.Orders
             CustomerId = customerId;
             DeliveryDate = deliveryDate;
             Status = EnumOrderStatus.Pending;
-            Shipped = false;
-            Delivered = false;
             Items = new List<OrderItem>();
         }
 
@@ -25,8 +22,9 @@ namespace ChoppSoft.Domain.Models.Orders
         public DateTime? DeliveryDate  { get; private set; }
         public EnumOrderStatus Status { get; private set; }
         public decimal TotalAmount { get; private set; }
-        public bool Shipped { get; private set; }
-        public bool Delivered { get; private set; }
+        public bool Shipped { get; private set; } = false;
+        public bool Delivered { get; private set; } = false;
+        public bool Paid { get; private set; } = false;
 
         public Customer Customer { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
@@ -105,6 +103,16 @@ namespace ChoppSoft.Domain.Models.Orders
         internal void UndoDelivered()
         {
             Delivered = false;
+        }
+
+        internal void MakeAsPaid() 
+        {
+            Paid = true;
+        }
+
+        internal void UndoPaid()
+        {
+            Paid = false;
         }
     }
 }

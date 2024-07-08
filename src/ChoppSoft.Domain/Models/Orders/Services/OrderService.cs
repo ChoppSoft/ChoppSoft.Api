@@ -1,10 +1,10 @@
-﻿using ChoppSoft.Domain.Interfaces.Addresses;
-using ChoppSoft.Domain.Interfaces.Orders;
+﻿using ChoppSoft.Domain.Interfaces.Orders;
 using ChoppSoft.Domain.Models.Orders.Items;
-using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
+using ChoppSoft.Domain.Models.Orders.Services.Dtos;
+using ChoppSoft.Domain.Models.Orders.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
-namespace ChoppSoft.Domain.Models.Orders.Sservices
+namespace ChoppSoft.Domain.Models.Orders.Services
 {
     public class OrderService : IOrderService
     {
@@ -35,6 +35,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
         {
             var order = new Order(dto.customerid, dto.deliveryDate);
 
+            var validationResult = new OrderCreateValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
             await _orderRepository.Add(order);
 
             return ServiceResult.Successful(new
@@ -50,6 +55,12 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
+
+            var validationResult = new OrderChangeCustomerValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
 
             order.ChangeCustomer(dto.customerid);
 
@@ -69,6 +80,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
+            var validationResult = new OrderChangeDeliveryDateValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
             order.ChangeDeliveryDate(dto.deliveryDate);
 
             await _orderRepository.Update(order);
@@ -86,6 +102,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
+
+            var validationResult = new OrderUpdateItemValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
 
             order.AddItems(dtos.Select(p => new OrderItem(id,
                                                           p.productid,
@@ -110,6 +131,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
+            var validationResult = new OrderUpdateItemValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
             var orderItemsId = dtos.Select(p => p.id).ToList();
             var orderItems = await _orderItemRepository.Get(p => orderItemsId.Contains(p.Id));
 
@@ -133,6 +159,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
+            var validationResult = new OrderConfirmValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
             order.MakeAsConfirmed();
 
             return ServiceResult.Successful(new
@@ -149,6 +180,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
+            var validationResult = new OrderUndoConfirmValidator().Validate(order);
+
+            if(!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+
             order.UndoConfirme();
 
             return ServiceResult.Successful(new
@@ -164,6 +200,11 @@ namespace ChoppSoft.Domain.Models.Orders.Sservices
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
+
+            var validationResult = new OrderCancelValidator().Validate(order);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
 
             order.MakeAsCanceled();
 

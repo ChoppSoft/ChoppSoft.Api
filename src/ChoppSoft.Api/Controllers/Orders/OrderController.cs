@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ChoppSoft.Api.ViewModels;
-using ChoppSoft.Domain.Models.Orders.Sservices;
-using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
+using ChoppSoft.Domain.Models.Orders.Services;
+using ChoppSoft.Domain.Models.Orders.Services.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Orders

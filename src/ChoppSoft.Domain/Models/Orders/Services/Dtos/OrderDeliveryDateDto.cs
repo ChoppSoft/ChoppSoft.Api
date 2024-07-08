@@ -1,4 +1,4 @@
-﻿namespace ChoppSoft.Domain.Models.Orders.Sservices.Dtos
+﻿namespace ChoppSoft.Domain.Models.Orders.Services.Dtos
 {
     public record OrderDeliveryDateDto(DateTime? deliveryDate);
 }

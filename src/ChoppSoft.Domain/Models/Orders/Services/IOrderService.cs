@@ -1,7 +1,7 @@
-﻿using ChoppSoft.Domain.Models.Orders.Sservices.Dtos;
+﻿using ChoppSoft.Domain.Models.Orders.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 
-namespace ChoppSoft.Domain.Models.Orders.Sservices
+namespace ChoppSoft.Domain.Models.Orders.Services
 {
     public interface IOrderService : IDisposable
     {

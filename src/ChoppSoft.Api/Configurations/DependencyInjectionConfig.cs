@@ -15,7 +15,7 @@ using ChoppSoft.Domain.Models.Addresses.Services;
 using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Locations;
-using ChoppSoft.Domain.Models.Orders.Sservices;
+using ChoppSoft.Domain.Models.Orders.Services;
 using ChoppSoft.Domain.Models.Products.Services;
 using ChoppSoft.Domain.Models.Resources.Services;
 using ChoppSoft.Domain.Models.Suppliers.Services;
