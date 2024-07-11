@@ -11,14 +11,12 @@ namespace ChoppSoft.Domain.Models.Deliveries
         public Delivery(Guid orderId, 
                         Guid resourceId, 
                         DateTime scheduledDate, 
-                        DateTime? deliveryDate, 
-                        EnumDeliveryStatus status)
+                        DateTime? deliveryDate)
         {
             OrderId = orderId;
             ResourceId = resourceId;
             ScheduledDate = scheduledDate;
             DeliveryDate = deliveryDate;
-            Status = status;
         }
 
         public Delivery() { }
@@ -38,7 +36,6 @@ namespace ChoppSoft.Domain.Models.Deliveries
             ResourceId = dto.resourceid;
             ScheduledDate = dto.scheduleddate;
             DeliveryDate = dto.deliverydate;
-            Status = dto.status;
         }
     }
 }

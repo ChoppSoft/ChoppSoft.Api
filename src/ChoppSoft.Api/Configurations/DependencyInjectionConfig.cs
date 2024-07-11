@@ -13,6 +13,8 @@ using ChoppSoft.Domain.Interfaces.Users;
 using ChoppSoft.Domain.Interfaces.Warehouses;
 using ChoppSoft.Domain.Models.Addresses.Services;
 using ChoppSoft.Domain.Models.Customers.Services;
+using ChoppSoft.Domain.Models.Deliveries.Services;
+using ChoppSoft.Domain.Models.Feedbacks.Services;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Locations;
 using ChoppSoft.Domain.Models.Orders.Services;
@@ -69,10 +71,12 @@ namespace ChoppSoft.Api.Configurations
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+            services.AddScoped<IDeliveryService, DeliveryService>();
 
             services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
 
             services.AddScoped<IRouteRepository, RouteRepository>();
 

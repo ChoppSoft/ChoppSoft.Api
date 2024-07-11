@@ -2,6 +2,8 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Addresses;
 using ChoppSoft.Domain.Models.Customers;
+using ChoppSoft.Domain.Models.Deliveries;
+using ChoppSoft.Domain.Models.Feedbacks;
 using ChoppSoft.Domain.Models.Inventories;
 using ChoppSoft.Domain.Models.Orders;
 using ChoppSoft.Domain.Models.Orders.Items;
@@ -42,6 +44,10 @@ namespace ChoppSoft.Api.Configurations
 
             CreateMap<OrderItem, OrderItemViewModel>()
                 .ForMember(p => p.ProductDescription, opt => opt.MapFrom(src => src.Product.Description));
+
+            CreateMap<Feedback, FeedbackViewModel>();
+
+            CreateMap<Delivery, DeliveryViewModel>();
         }
     }
 }
