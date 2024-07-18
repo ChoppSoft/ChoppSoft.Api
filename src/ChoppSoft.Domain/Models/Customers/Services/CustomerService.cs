@@ -20,7 +20,7 @@ namespace ChoppSoft.Domain.Models.Customers.Services
             
             var customer = new Customer(dto.name, dto.document, dto.documenttype, dto.phonenumber, dto.email, dto.dateofbirth);
 
-            var validationResult = new CustomerCreateValidator(BeUniqueDocumentAsync).Validate(customer);
+            var validationResult = await new CustomerCreateValidator(BeUniqueDocumentAsync).ValidateAsync(customer);
 
             if (!validationResult.IsValid)
                 return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());

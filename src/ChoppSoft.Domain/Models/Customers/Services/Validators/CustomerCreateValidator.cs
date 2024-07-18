@@ -28,7 +28,7 @@ namespace ChoppSoft.Domain.Models.Customers.Services.Validators
             RuleFor(customer => customer.Document)
                 .NotEmpty().WithMessage("O documento é obrigatório.")
                 .MustAsync(async (document, cancellation) => await _beUniqueDocumentAsync(document))
-                .WithMessage("Já existe um cliente com este documento na base.");
+                .WithMessage("Já existe um cliente com este documento cadastrado.");
         }
 
         private bool BeAValidDate(DateTime dateOfBirth)

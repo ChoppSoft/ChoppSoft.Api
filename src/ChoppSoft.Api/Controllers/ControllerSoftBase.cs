@@ -21,7 +21,7 @@ namespace ChoppSoft.Api.Controllers
             var response = _mapper.Map<TView>(result.Entity);
 
             return result.Success ? Ok(new { Result = response, totalCount, totalPages })
-                                  : BadRequest(string.Join("</br>", result.Errors));
+                                  : BadRequest(new { Erros = result.Errors });
         }
 
         protected IActionResult ReturnBase<TView>(ServiceResult result, string message = "")
@@ -29,19 +29,19 @@ namespace ChoppSoft.Api.Controllers
             var response = _mapper.Map<TView>(result.Entity);
 
             return result.Success ? Ok(new { Result = response, Message = message }) 
-                                  : BadRequest(string.Join("</br>", result.Errors));
+                                  : BadRequest(new { Erros = result.Errors });
         }
 
         protected IActionResult ReturnBase(ServiceResult result, int totalCount, int totalPages)
         {
             return result.Success ? Ok(new { Result = result.Entity, totalCount, totalPages })
-                                  : BadRequest(string.Join("</br>", result.Errors));
+                                  : BadRequest(new { Erros = result.Errors });
         }
 
         protected IActionResult ReturnBase(ServiceResult result, string message = "")
         {
             return result.Success ? Ok(new { Result = result.Entity, Message = message })
-                                  : BadRequest(string.Join("</br>", result.Errors));
+                                  : BadRequest(new { Erros = result.Errors });
         }
     }
 }
