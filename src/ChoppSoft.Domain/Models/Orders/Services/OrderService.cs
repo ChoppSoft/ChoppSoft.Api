@@ -19,9 +19,9 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
         public async Task<ServiceResult> GetAll(int page, int pageSize)
         {
-            var order = await _orderRepository.GetAll(page, pageSize, "Customer");
+            var orders = await _orderRepository.GetAll(page, pageSize, "Customer");
 
-            return ServiceResult.Successful(order);
+            return ServiceResult.Successful(orders);
         }
 
         public async Task<ServiceResult> GetById(Guid id)

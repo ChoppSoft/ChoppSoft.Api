@@ -26,6 +26,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
         public DateTime ScheduledDate { get; private set; }
         public DateTime? DeliveryDate { get; private set; }
         public EnumDeliveryStatus Status { get; private set; }
+        public bool Planned { get; private set; } = false;
 
         public Order Order { get; private set; }
         public Resource Resource { get; private set; }
@@ -37,5 +38,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
             ScheduledDate = dto.scheduleddate;
             DeliveryDate = dto.deliverydate;
         }
+
+        internal void PlannedRoute() => Planned = true;
     }
 }

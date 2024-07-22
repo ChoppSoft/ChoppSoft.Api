@@ -6,15 +6,19 @@ namespace ChoppSoft.Domain.Models.Payments
 {
     public sealed class Payment : Entity
     {
-        public Payment(Guid orderId, 
-                       DateTime paymentDate, 
-                       decimal amount, 
-                       EnumPaymentMethod method)
+        public Payment(Guid orderId,
+                       EnumPaymentMethod method,
+                       EnumTypeDiscount typediscount,
+                       decimal discount,
+                       decimal expenses)
         {
             OrderId = orderId;
-            PaymentDate = paymentDate;
-            Amount = amount;
             Method = method;
+            TypeDiscount = typediscount;
+            Discount = discount;
+            Status = EnumStatusPayment.Paid;
+            PaymentDate = DateTime.Now;
+            Expenses = expenses;
         }
 
         public Payment() { }
@@ -23,7 +27,21 @@ namespace ChoppSoft.Domain.Models.Payments
         public DateTime PaymentDate { get; private set; }
         public decimal Amount { get; private set; }
         public EnumPaymentMethod Method { get; private set; }
+        public EnumTypeDiscount TypeDiscount { get; private set; }
+        public decimal Discount { get; private set; }
+        public EnumStatusPayment Status { get; private set; }
+        public decimal Expenses { get; private set; }
 
         public Order Order { get; private set; }
+
+        internal void SetAmont(decimal amount)
+        {
+            Amount = amount + Expenses - Discount;
+        }
+
+        internal void MakeAsCanceled()
+        {
+            Status = EnumStatusPayment.Canceled;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Customers;
+﻿using ChoppSoft.Domain.Models.Addresses;
+using ChoppSoft.Domain.Models.Customers;
 using ChoppSoft.Domain.Models.Orders.Enums;
 using ChoppSoft.Domain.Models.Orders.Items;
 using ChoppSoft.Infra.Bases;
@@ -26,13 +27,17 @@ namespace ChoppSoft.Domain.Models.Orders
         public bool Shipped { get; private set; } = false;
         public bool Delivered { get; private set; } = false;
         public bool Paid { get; private set; } = false;
+        public Guid? AddressId { get; private set; }
 
         public Customer Customer { get; private set; }
+        public Address Address { get; private set; }
         public ICollection<OrderItem> Items { get; private set; }
 
         internal void ChangeCustomer(Guid customerId) => CustomerId = customerId;
 
         internal void ChangeDeliveryDate(DateTime? deliveryDate) => DeliveryDate = deliveryDate;
+
+        internal void AddAdress(Guid addressId) => AddressId = addressId;
 
         internal void AddItem(OrderItem item) => Items.Add(item);
 
