@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces;
 using ChoppSoft.Infra.Bases;
+using ChoppSoft.Infra.Bases.Enums;
 using ChoppSoft.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -27,6 +28,47 @@ namespace ChoppSoft.Repository.Repositories
             }
 
             return await query.AsNoTracking().Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public virtual async Task<ICollection<TEntity>> GetAllWithFilters(int page, int pageSize, ICollection<Filter> filters = null, params string[] includes)
+        {
+            IQueryable<TEntity> query = _dbSetEntity;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            if (filters is not null && filters.Any())
+            {
+                var parameter = Expression.Parameter(typeof(TEntity), "e");
+                Expression combined = null;
+
+                foreach (var filter in filters)
+                {
+                    var property = Expression.Property(parameter, filter.PropertyName);
+                    var value = Expression.Constant(Convert.ChangeType(filter.Value, property.Type));
+
+                    Expression operation = filter.Operation switch
+                    {
+                        EnumOperationType.Equal => Expression.Equal(property, value),
+                        EnumOperationType.NotEqual => Expression.NotEqual(property, value),
+                        EnumOperationType.GreaterThan => Expression.GreaterThan(property, value),
+                        EnumOperationType.LessThan => Expression.LessThan(property, value),
+                        _ => throw new NotImplementedException()
+                    };
+
+                    combined = combined == null ? operation : Expression.AndAlso(combined, operation);
+                }
+
+                var lambda = Expression.Lambda<Func<TEntity, bool>>(combined, parameter);
+                query = query.Where(lambda);
+            }
+
+            return await query.AsNoTracking()
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize)
+                              .ToListAsync();
         }
 
         public virtual async Task<TEntity> GetById(Guid id)

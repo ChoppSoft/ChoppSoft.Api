@@ -2,6 +2,7 @@
 using ChoppSoft.Domain.Models.Resources.Services.Dtos;
 using ChoppSoft.Domain.Models.Resources.Services.Validators;
 using ChoppSoft.Infra.Bases;
+using ChoppSoft.Infra.Extensions;
 
 namespace ChoppSoft.Domain.Models.Resources.Services
 {
@@ -58,9 +59,9 @@ namespace ChoppSoft.Domain.Models.Resources.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(int page, int pageSize, string filters)
         {
-            var resource = await _resourceRepository.GetAll(page, pageSize);
+            var resource = await _resourceRepository.GetAllWithFilters(page, pageSize, filters.CreateFilters());
 
             return ServiceResult.Successful(resource);
         }
