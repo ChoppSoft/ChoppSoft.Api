@@ -19,7 +19,7 @@ namespace ChoppSoft.Domain.Models.Resources.Services
             var resource = new Resource(dto.description,
                                         dto.model,
                                         dto.licenseplate,
-            dto.capacity,
+                                        dto.capacity,
                                         dto.isowned);
 
             var validationResult = new ResourceCreateValidator().Validate(resource);
