@@ -18,8 +18,10 @@ using ChoppSoft.Domain.Models.Feedbacks.Services;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Locations;
 using ChoppSoft.Domain.Models.Orders.Services;
+using ChoppSoft.Domain.Models.Payments.Services;
 using ChoppSoft.Domain.Models.Products.Services;
 using ChoppSoft.Domain.Models.Resources.Services;
+using ChoppSoft.Domain.Models.Routes.Services;
 using ChoppSoft.Domain.Models.Suppliers.Services;
 using ChoppSoft.Domain.Models.Users.Services;
 using ChoppSoft.Domain.Models.Warehouses.Services;
@@ -74,11 +76,13 @@ namespace ChoppSoft.Api.Configurations
             services.AddScoped<IDeliveryService, DeliveryService>();
 
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeedbackService, FeedbackService>();
 
             services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IRouteService, RouteService>();
 
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<IWarehouseService, WarehouseService>();
