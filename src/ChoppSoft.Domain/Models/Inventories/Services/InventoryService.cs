@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Inventories;
 using ChoppSoft.Domain.Models.Inventories.Services.Dtos;
+using ChoppSoft.Domain.Models.Inventories.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Inventories.Services
@@ -14,9 +15,14 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
 
         public async Task<ServiceResult> Create(InventoryDto dto)
         {
-            var inventory = new Inventory(dto.productid, 
+            var inventory = new Inventory(dto.productid,
                                           dto.warehouseid,
                                           dto.quantity);
+
+            var validationResult = new InventoryCreateValidator().Validate(inventory);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _inventoryRepository.Add(inventory);
 
@@ -35,6 +41,11 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o estoque de código {id}");
 
             inventory.Update(dto);
+
+            var validationResult = new InventoryUpdateValidator().Validate(inventory);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _inventoryRepository.Update(inventory);
 

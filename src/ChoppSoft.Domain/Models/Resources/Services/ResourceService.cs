@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Resources;
 using ChoppSoft.Domain.Models.Resources.Services.Dtos;
+using ChoppSoft.Domain.Models.Resources.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Resources.Services
@@ -17,8 +18,13 @@ namespace ChoppSoft.Domain.Models.Resources.Services
             var resource = new Resource(dto.description,
                                         dto.model,
                                         dto.licenseplate,
-                                        dto.capacity,
+            dto.capacity,
                                         dto.isowned);
+
+            var validationResult = new ResourceCreateValidator().Validate(resource);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _resourceRepository.Add(resource);
 
@@ -37,6 +43,11 @@ namespace ChoppSoft.Domain.Models.Resources.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o recurso de código {id}");
 
             resource.Update(dto);
+
+            var validationResult = new ResourceUpdateValidator().Validate(resource);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _resourceRepository.Update(resource);
 

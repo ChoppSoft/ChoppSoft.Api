@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Products;
 using ChoppSoft.Domain.Models.Products.Services.Dtos;
+using ChoppSoft.Domain.Models.Products.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Products.Services
@@ -18,9 +19,14 @@ namespace ChoppSoft.Domain.Models.Products.Services
                                       dto.description,
                                       dto.brand,
                                       dto.capacity,
-                                      dto.price);
+            dto.price);
 
             await _productRepository.Add(product);
+
+            var validationResult = new ProductCreateValidator().Validate(product);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             return ServiceResult.Successful(new
             {
@@ -37,6 +43,11 @@ namespace ChoppSoft.Domain.Models.Products.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o produto de código {id}");
 
             product.Update(dto);
+
+            var validationResult = new ProductUpdateValidator().Validate(product);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _productRepository.Update(product);
 

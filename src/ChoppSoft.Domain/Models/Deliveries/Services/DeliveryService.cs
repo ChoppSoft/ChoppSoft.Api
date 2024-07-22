@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Deliveries;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
+using ChoppSoft.Domain.Models.Deliveries.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Deliveries.Services
@@ -19,6 +20,11 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
                                         dto.scheduleddate,
                                         dto.deliverydate);
 
+            var validationResult = new DeliveryCreateValidator().Validate(delivery);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
+
             await _deliveryRepository.Add(delivery);
 
             return ServiceResult.Successful(new
@@ -36,6 +42,11 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
                 return ServiceResult.Failed($"Não foi possível encontrar a entrega de código {id}");
 
             delivery.Update(dto);
+
+            var validationResult = new DeliveryUpdateValidator().Validate(delivery);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _deliveryRepository.Update(delivery);
 

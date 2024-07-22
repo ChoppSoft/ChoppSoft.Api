@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Suppliers;
 using ChoppSoft.Domain.Models.Suppliers.Services.Dtos;
+using ChoppSoft.Domain.Models.Suppliers.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Suppliers.Services
@@ -18,6 +19,11 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
                                         dto.email,
                                         dto.phonenumber);
 
+            var validationResult = new SupplierCreateValidator().Validate(supplier);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
+
             await _supplierRepository.Add(supplier);
 
             return ServiceResult.Successful(new
@@ -35,6 +41,11 @@ namespace ChoppSoft.Domain.Models.Suppliers.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o fornecedor de código {id}");
 
             supplier.Update(dto);
+
+            var validationResult = new SupplierUpdateValidator().Validate(supplier);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _supplierRepository.Update(supplier);
 

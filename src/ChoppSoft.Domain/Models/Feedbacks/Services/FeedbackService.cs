@@ -1,9 +1,7 @@
-﻿using ChoppSoft.Domain.Interfaces.Inventories;
-using ChoppSoft.Domain.Models.Inventories.Services.Dtos;
-using ChoppSoft.Domain.Models.Inventories;
-using ChoppSoft.Infra.Bases;
-using ChoppSoft.Domain.Interfaces.Feedbacks;
+﻿using ChoppSoft.Domain.Interfaces.Feedbacks;
 using ChoppSoft.Domain.Models.Feedbacks.Services.Dtos;
+using ChoppSoft.Domain.Models.Feedbacks.Services.Validators;
+using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Feedbacks.Services
 {
@@ -19,8 +17,13 @@ namespace ChoppSoft.Domain.Models.Feedbacks.Services
         {
             var feedback = new Feedback(dto.customerid,
                                         dto.orderid,
-                                        dto.comments,
+            dto.comments,
                                         dto.rating);
+
+            var validationResult = new FeedbackCreateValidator().Validate(feedback);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _feedbackRepository.Add(feedback);
 
@@ -39,6 +42,11 @@ namespace ChoppSoft.Domain.Models.Feedbacks.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o feedback de código {id}");
 
             feedback.Update(dto);
+
+            var validationResult = new FeedbackUpdateValidator().Validate(feedback);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _feedbackRepository.Update(feedback);
 

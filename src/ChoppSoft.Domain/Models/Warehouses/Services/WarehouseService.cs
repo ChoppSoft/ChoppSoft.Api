@@ -1,5 +1,6 @@
 ﻿using ChoppSoft.Domain.Interfaces.Warehouses;
 using ChoppSoft.Domain.Models.Warehouses.Services.Dtos;
+using ChoppSoft.Domain.Models.Warehouses.Services.Validators;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Warehouses.Services
@@ -15,6 +16,11 @@ namespace ChoppSoft.Domain.Models.Warehouses.Services
         public async Task<ServiceResult> Create(WarehouseDto dto)
         {
             var warehouse = new Warehouse(dto.description, dto.location);
+
+            var validationResult = new WarehouseCreateValidator().Validate(warehouse);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _warehouseRepository.Add(warehouse);
 
@@ -33,6 +39,11 @@ namespace ChoppSoft.Domain.Models.Warehouses.Services
                 return ServiceResult.Failed($"Não foi possível encontrar o produto de código {id}");
 
             warehouse.Update(dto);
+
+            var validationResult = new WarehouseUpdateValidator().Validate(warehouse);
+
+            if (!validationResult.IsValid)
+                return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
 
             await _warehouseRepository.Update(warehouse);
 
