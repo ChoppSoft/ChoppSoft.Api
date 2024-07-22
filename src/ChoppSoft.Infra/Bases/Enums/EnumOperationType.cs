@@ -12,6 +12,8 @@ namespace ChoppSoft.Infra.Bases.Enums
         NotEqual = 2,
         GreaterThan = 3,
         LessThan = 4,
+        Contains = 5,
+        Between = 6,
         // adicionar conforme necessário
     }
 }

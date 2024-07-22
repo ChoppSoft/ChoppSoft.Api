@@ -59,9 +59,9 @@ namespace ChoppSoft.Domain.Models.Resources.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize, string filters)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var resource = await _resourceRepository.GetAllWithFilters(page, pageSize, filters.CreateFilters());
+            var resource = await _resourceRepository.GetAllWithFilters(query);
 
             return ServiceResult.Successful(resource);
         }

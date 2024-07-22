@@ -1,6 +1,7 @@
 ﻿using ChoppSoft.Domain.Interfaces;
 using ChoppSoft.Infra.Bases;
 using ChoppSoft.Infra.Bases.Enums;
+using ChoppSoft.Infra.Extensions;
 using ChoppSoft.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -30,8 +31,10 @@ namespace ChoppSoft.Repository.Repositories
             return await query.AsNoTracking().Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
-        public virtual async Task<ICollection<TEntity>> GetAllWithFilters(int page, int pageSize, ICollection<Filter> filters = null, params string[] includes)
+        public virtual async Task<ICollection<TEntity>> GetAllWithFilters(QueryParams queryParams, params string[] includes)
         {
+            var filters = queryParams.Filters.CreateFilters();
+
             IQueryable<TEntity> query = _dbSetEntity;
 
             foreach (var include in includes)
@@ -55,6 +58,8 @@ namespace ChoppSoft.Repository.Repositories
                         EnumOperationType.NotEqual => Expression.NotEqual(property, value),
                         EnumOperationType.GreaterThan => Expression.GreaterThan(property, value),
                         EnumOperationType.LessThan => Expression.LessThan(property, value),
+                        EnumOperationType.Contains => AddContainsExpression(property, value),
+                        EnumOperationType.Between => AddBetWeenExpression(property, value, filter),
                         _ => throw new NotImplementedException()
                     };
 
@@ -66,9 +71,32 @@ namespace ChoppSoft.Repository.Repositories
             }
 
             return await query.AsNoTracking()
-                              .Skip((page - 1) * pageSize)
-                              .Take(pageSize)
+                              .Skip((queryParams.Page - 1) * queryParams.PageSize)
+                              .Take(queryParams.PageSize)
                               .ToListAsync();
+        }
+
+        private BinaryExpression AddBetWeenExpression(MemberExpression property, ConstantExpression value, Filter filter)
+        {
+            if (filter.AdditionalValue == null)
+                throw new ArgumentNullException(nameof(filter.AdditionalValue), "Additional value is required for 'Between' operation");
+
+            var lowerBound = Expression.Constant(Convert.ChangeType(filter.Value, property.Type));
+            var upperBound = Expression.Constant(Convert.ChangeType(filter.AdditionalValue, property.Type));
+            var greaterThanOrEqual = Expression.GreaterThanOrEqual(property, lowerBound);
+            var lessThanOrEqual = Expression.LessThanOrEqual(property, upperBound);
+
+            return Expression.AndAlso(greaterThanOrEqual, lessThanOrEqual);
+        }
+
+        private MethodCallExpression AddContainsExpression(MemberExpression property, ConstantExpression value)
+        {
+            if (property.Type != typeof(string))
+                throw new NotSupportedException("Contains operation is only supported on string properties");
+
+            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+
+            return Expression.Call(property, method, value);
         }
 
         public virtual async Task<TEntity> GetById(Guid id)

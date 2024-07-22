@@ -17,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Resources
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25, [FromQuery] string filters = null)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _resourceService.GetAll(page, pageSize, filters);
-            var pagination = await _resourceService.GetPagination(pageSize);
+            var response = await _resourceService.GetAll(query);
+            var pagination = await _resourceService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<ResourceViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }
