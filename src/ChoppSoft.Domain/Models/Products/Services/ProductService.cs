@@ -58,9 +58,9 @@ namespace ChoppSoft.Domain.Models.Products.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var products = await _productRepository.GetAll(page, pageSize, "Suppliers");
+            var products = await _productRepository.GetAllWithFilters(query, "Suppliers");
 
             return ServiceResult.Successful(products);
         }

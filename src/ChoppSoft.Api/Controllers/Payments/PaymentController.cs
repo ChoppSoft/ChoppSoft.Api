@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Payments.Services;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Payments
@@ -16,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Payments
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _paymentService.GetAll(page, pageSize);
-            var pagination = await _paymentService.GetPagination(pageSize);
+            var response = await _paymentService.GetAll(query);
+            var pagination = await _paymentService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<PaymentViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

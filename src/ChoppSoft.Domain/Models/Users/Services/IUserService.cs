@@ -11,6 +11,6 @@ namespace ChoppSoft.Domain.Models.Users.Services
         Task<ServiceResult> SetAsEmployee(Guid UserId);
         Task<ServiceResult> ChangePassword(ChangePasswordDto model);
         Task<ServiceResult> GetById(Guid id);
-        Task<ServiceResult> GetAll(int page, int pageSize);
+        Task<ServiceResult> GetAll(QueryParams query);
     }
 }

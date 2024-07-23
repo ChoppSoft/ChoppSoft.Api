@@ -3,6 +3,7 @@ using ChoppSoft.Domain.Models.Warehouses.Services;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ChoppSoft.Api.ViewModels;
+using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Api.Controllers.Warehouses
 {
@@ -16,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Warehouses
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _warehouseService.GetAll(page, pageSize);
-            var pagination = await _warehouseService.GetPagination(pageSize);
+            var response = await _warehouseService.GetAll(query);
+            var pagination = await _warehouseService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<WarehouseViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

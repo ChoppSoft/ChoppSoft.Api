@@ -57,9 +57,9 @@ namespace ChoppSoft.Domain.Models.Feedbacks.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var feedbacks = await _feedbackRepository.GetAll(page, pageSize, "Customer", "Order");
+            var feedbacks = await _feedbackRepository.GetAllWithFilters(query, "Customer", "Order");
 
             return ServiceResult.Successful(feedbacks);
         }

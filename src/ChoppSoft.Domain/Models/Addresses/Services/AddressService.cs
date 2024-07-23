@@ -66,9 +66,9 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var address = await _addressRepository.GetAll(page, pageSize, "Customer");
+            var address = await _addressRepository.GetAllWithFilters(query, "Customer");
 
             return ServiceResult.Successful(address);
         }

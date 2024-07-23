@@ -64,9 +64,9 @@ namespace ChoppSoft.Domain.Models.Payments.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var payments = await _paymentRepository.GetAll(page, pageSize, "Order");
+            var payments = await _paymentRepository.GetAllWithFilters(query, "Order");
 
             return ServiceResult.Successful(payments);
         }

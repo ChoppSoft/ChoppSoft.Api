@@ -18,10 +18,10 @@ namespace ChoppSoft.Api.Controllers.Addresses
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _addressService.GetAll(page, pageSize);
-            var pagination = await _addressService.GetPagination(pageSize);
+            var response = await _addressService.GetAll(query);
+            var pagination = await _addressService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<AddressViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

@@ -56,9 +56,9 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var inventorys = await _inventoryRepository.GetAll(page, pageSize, "Product", "Warehouse");
+            var inventorys = await _inventoryRepository.GetAllWithFilters(query, "Product", "Warehouse");
 
             return ServiceResult.Successful(inventorys);
         }

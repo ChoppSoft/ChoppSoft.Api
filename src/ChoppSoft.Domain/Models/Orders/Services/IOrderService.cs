@@ -6,7 +6,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
     public interface IOrderService : IDisposable
     {
         Task<ServiceResult> Create(OrderDto dto);
-        Task<ServiceResult> GetAll(int page, int pageSize);
+        Task<ServiceResult> GetAll(QueryParams query);
         Task<ServiceResult> GetById(Guid id);
         Task<ServiceResult> ChangeCustomer(Guid id, OrderCustomerDto dto);
         Task<ServiceResult> ChangeDeliveryDate(Guid id, OrderDeliveryDateDto dto);

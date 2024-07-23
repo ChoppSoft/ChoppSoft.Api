@@ -2,6 +2,7 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Deliveries.Services;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Deliveries
@@ -16,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _deliveryService.GetAll(page, pageSize);
-            var pagination = await _deliveryService.GetPagination(pageSize);
+            var response = await _deliveryService.GetAll(query);
+            var pagination = await _deliveryService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<DeliveryViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

@@ -2,6 +2,7 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Routes.Services;
 using ChoppSoft.Domain.Models.Routes.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Routes
@@ -17,10 +18,10 @@ namespace ChoppSoft.Api.Controllers.Routes
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _routeService.GetAll(page, pageSize);
-            var pagination = await _routeService.GetPagination(pageSize);
+            var response = await _routeService.GetAll(query);
+            var pagination = await _routeService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<RouteViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

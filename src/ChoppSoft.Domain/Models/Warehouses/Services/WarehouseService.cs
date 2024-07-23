@@ -54,9 +54,9 @@ namespace ChoppSoft.Domain.Models.Warehouses.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var warehouses = await _warehouseRepository.GetAll(page, pageSize, "Products");
+            var warehouses = await _warehouseRepository.GetAllWithFilters(query, "Products");
 
             return ServiceResult.Successful(warehouses);
         }

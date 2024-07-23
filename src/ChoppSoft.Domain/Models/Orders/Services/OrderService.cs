@@ -17,9 +17,9 @@ namespace ChoppSoft.Domain.Models.Orders.Services
             _orderItemRepository = orderItemRepository;
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var orders = await _orderRepository.GetAll(page, pageSize, "Customer");
+            var orders = await _orderRepository.GetAllWithFilters(query, "Customer");
 
             return ServiceResult.Successful(orders);
         }

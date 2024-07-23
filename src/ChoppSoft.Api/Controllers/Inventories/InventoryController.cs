@@ -2,6 +2,7 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Inventories.Services;
 using ChoppSoft.Domain.Models.Inventories.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Inventories
@@ -16,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Inventories
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _inventoryService.GetAll(page, pageSize);
-            var pagination = await _inventoryService.GetPagination(pageSize);
+            var response = await _inventoryService.GetAll(query);
+            var pagination = await _inventoryService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<InventoryViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

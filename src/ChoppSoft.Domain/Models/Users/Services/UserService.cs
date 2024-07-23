@@ -116,9 +116,9 @@ namespace ChoppSoft.Domain.Models.Users.Services
             return ServiceResult.Successful("Usuário definido como funcionário.");
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var users = await _userRepository.GetAll(page, pageSize);
+            var users = await _userRepository.GetAllWithFilters(query);
 
             return ServiceResult.Successful(users.Select(user => new
             {

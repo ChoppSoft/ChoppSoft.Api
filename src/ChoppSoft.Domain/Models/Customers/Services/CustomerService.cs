@@ -57,9 +57,9 @@ namespace ChoppSoft.Domain.Models.Customers.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var customers = await _customerRepository.GetAll(page, pageSize, "Addresses");
+            var customers = await _customerRepository.GetAllWithFilters(query, "Addresses");
 
             return ServiceResult.Successful(customers);
         }

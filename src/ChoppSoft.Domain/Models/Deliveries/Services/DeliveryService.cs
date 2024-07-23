@@ -57,9 +57,9 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var deliverys = await _deliveryRepository.GetAll(page, pageSize, "Order", "Resource");
+            var deliverys = await _deliveryRepository.GetAllWithFilters(query, "Order", "Resource");
 
             return ServiceResult.Successful(deliverys);
         }

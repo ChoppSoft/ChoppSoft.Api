@@ -45,9 +45,9 @@ namespace ChoppSoft.Api.Controllers.Users
 
         [HttpGet("List")]
         [Authorize(Roles = "manager")]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            return ReturnBase(await _userService.GetAll(page, pageSize), "GetAll");
+            return ReturnBase(await _userService.GetAll(query), "GetAll");
         }
 
         [HttpGet]

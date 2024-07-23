@@ -7,7 +7,7 @@ namespace ChoppSoft.Domain.Models.Inventories.Services
     {
         Task<ServiceResult> Create(InventoryDto dto);
         Task<ServiceResult> Update(Guid id, InventoryDto dto);
-        Task<ServiceResult> GetAll(int page, int pageSize);
+        Task<ServiceResult> GetAll(QueryParams query);
         Task<ServiceResult> GetById(Guid id);
         Task<ServiceResult> Active(Guid id);
         Task<ServiceResult> Inactivate(Guid id);

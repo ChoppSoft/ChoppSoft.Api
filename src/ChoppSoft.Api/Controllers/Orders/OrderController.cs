@@ -2,6 +2,7 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Orders.Services;
 using ChoppSoft.Domain.Models.Orders.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Orders
@@ -24,10 +25,10 @@ namespace ChoppSoft.Api.Controllers.Orders
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _orderService.GetAll(page, pageSize);
-            var pagination = await _orderService.GetPagination(pageSize);
+            var response = await _orderService.GetAll(query);
+            var pagination = await _orderService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<OrderViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

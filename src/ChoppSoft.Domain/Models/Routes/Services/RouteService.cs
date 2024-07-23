@@ -32,9 +32,9 @@ namespace ChoppSoft.Domain.Models.Routes.Services
             });
         }
 
-        public async Task<ServiceResult> GetAll(int page, int pageSize)
+        public async Task<ServiceResult> GetAll(QueryParams query)
         {
-            var routes = await _routeRepository.GetAll(page, pageSize, "Stops", "Deliveries");
+            var routes = await _routeRepository.GetAllWithFilters(query, "Stops", "Deliveries");
 
             return ServiceResult.Successful(routes);
         }

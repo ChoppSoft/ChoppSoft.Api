@@ -7,7 +7,7 @@ namespace ChoppSoft.Domain.Models.Payments.Services
     {
         Task<ServiceResult> Create(PaymentDto dto);
         Task<ServiceResult> Cancel(Guid id);
-        Task<ServiceResult> GetAll(int page, int pageSize);
+        Task<ServiceResult> GetAll(QueryParams query);
         Task<ServiceResult> GetById(Guid id);
         Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize);
     }

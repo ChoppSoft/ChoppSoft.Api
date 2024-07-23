@@ -2,6 +2,7 @@
 using ChoppSoft.Api.ViewModels;
 using ChoppSoft.Domain.Models.Feedbacks.Services;
 using ChoppSoft.Domain.Models.Feedbacks.Services.Dtos;
+using ChoppSoft.Infra.Bases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Feedbacks
@@ -16,10 +17,10 @@ namespace ChoppSoft.Api.Controllers.Feedbacks
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+        public async Task<IActionResult> GetAll([FromQuery] QueryParams query)
         {
-            var response = await _feedbackService.GetAll(page, pageSize);
-            var pagination = await _feedbackService.GetPagination(pageSize);
+            var response = await _feedbackService.GetAll(query);
+            var pagination = await _feedbackService.GetPagination(query.PageSize);
 
             return ReturnBase<ICollection<FeedbackViewModel>>(response, pagination.TotalCount, pagination.TotalPages);
         }

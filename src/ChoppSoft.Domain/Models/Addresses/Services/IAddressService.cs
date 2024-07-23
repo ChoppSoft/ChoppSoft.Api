@@ -7,7 +7,7 @@ namespace ChoppSoft.Domain.Models.Addresses.Services
     {
         Task<ServiceResult> Create(AddressDto dto);
         Task<ServiceResult> Update(Guid id, AddressDto dto);
-        Task<ServiceResult> GetAll(int page, int pageSize);
+        Task<ServiceResult> GetAll(QueryParams query);
         Task<ServiceResult> GetById(Guid id);
         Task<ServiceResult> SetAsDefault(Guid id);
         Task<ServiceResult> Active(Guid id);
