@@ -49,7 +49,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/MakeAsCollecting")]
+        [HttpPut("{id:Guid}/MakeAsCollecting")]
         public async Task<IActionResult> MakeAsCollecting([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -57,7 +57,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/UndoCollecting")]
+        [HttpPut("{id:Guid}/UndoCollecting")]
         public async Task<IActionResult> UndoCollecting([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -65,7 +65,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/MakeAsCollectingFinished")]
+        [HttpPut("{id:Guid}/MakeAsCollectingFinished")]
         public async Task<IActionResult> MakeAsCollectingFinished([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -73,7 +73,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/UndoCollectingFinished")]
+        [HttpPut("{id:Guid}/UndoCollectingFinished")]
         public async Task<IActionResult> UndoCollectingFinished([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -81,7 +81,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/MakeAsInProgess")]
+        [HttpPut("{id:Guid}/MakeAsInProgess")]
         public async Task<IActionResult> MakeAsInProgess([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -89,7 +89,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/UndoInProgess")]
+        [HttpPut("{id:Guid}/UndoInProgess")]
         public async Task<IActionResult> UndoInProgess([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -97,7 +97,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/MakeAsInConference")]
+        [HttpPut("{id:Guid}/MakeAsInConference")]
         public async Task<IActionResult> MakeAsInConference([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -105,7 +105,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/UndoInConference")]
+        [HttpPut("{id:Guid}/UndoInConference")]
         public async Task<IActionResult> UndoInConference([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
@@ -113,7 +113,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
             return ReturnBase(response);
         }
 
-        [HttpPut("{ig:Guid}/MakeAsComplete")]
+        [HttpPut("{id:Guid}/MakeAsComplete")]
         public async Task<IActionResult> MakeAsComplete([FromRoute] Guid id)
         {
             var response = ServiceResult.Successful();
