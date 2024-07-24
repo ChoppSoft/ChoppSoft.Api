@@ -48,5 +48,77 @@ namespace ChoppSoft.Api.Controllers.Deliveries
 
             return ReturnBase(response);
         }
+
+        [HttpPut("{ig:Guid}/MakeAsCollecting")]
+        public async Task<IActionResult> MakeAsCollecting([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/UndoCollecting")]
+        public async Task<IActionResult> UndoCollecting([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/MakeAsCollectingFinished")]
+        public async Task<IActionResult> MakeAsCollectingFinished([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/UndoCollectingFinished")]
+        public async Task<IActionResult> UndoCollectingFinished([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/MakeAsInProgess")]
+        public async Task<IActionResult> MakeAsInProgess([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/UndoInProgess")]
+        public async Task<IActionResult> UndoInProgess([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/MakeAsInConference")]
+        public async Task<IActionResult> MakeAsInConference([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/UndoInConference")]
+        public async Task<IActionResult> UndoInConference([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{ig:Guid}/MakeAsComplete")]
+        public async Task<IActionResult> MakeAsComplete([FromRoute] Guid id)
+        {
+            var response = ServiceResult.Successful();
+
+            return ReturnBase(response);
+        }
     }
 }
