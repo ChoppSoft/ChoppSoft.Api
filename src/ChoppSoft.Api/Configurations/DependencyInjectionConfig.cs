@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Interfaces.Addresses;
+﻿using ChoppSoft.Application.Applications.Orders;
+using ChoppSoft.Domain.Interfaces.Addresses;
 using ChoppSoft.Domain.Interfaces.Customers;
 using ChoppSoft.Domain.Interfaces.Deliveries;
 using ChoppSoft.Domain.Interfaces.Feedbacks;
@@ -71,6 +72,8 @@ namespace ChoppSoft.Api.Configurations
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
+            services.AddScoped<IOrderApplication, OrderApplication>();
 
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
             services.AddScoped<IDeliveryService, DeliveryService>();

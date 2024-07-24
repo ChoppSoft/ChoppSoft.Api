@@ -176,6 +176,13 @@ namespace ChoppSoft.Domain.Models.Orders.Services
             });
         }
 
+        public async Task<(bool isValid, ICollection<string> errorMsgs)> ProcessValidation(Order order)
+        {
+            var validationResult = await new OrderProcessValidator().ValidateAsync(order);
+
+            return (validationResult.IsValid, validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
+        }
+
         public async Task<ServiceResult> UndoConfirmation(Guid id)
         {
             var order = await _orderRepository.GetById(id);

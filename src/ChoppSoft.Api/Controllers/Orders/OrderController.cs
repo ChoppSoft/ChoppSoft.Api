@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using ChoppSoft.Api.ViewModels;
+using ChoppSoft.Application.Applications.Orders;
+using ChoppSoft.Application.Applications.Orders.Dtos;
 using ChoppSoft.Domain.Models.Orders.Services;
 using ChoppSoft.Domain.Models.Orders.Services.Dtos;
 using ChoppSoft.Infra.Bases;
@@ -10,10 +12,14 @@ namespace ChoppSoft.Api.Controllers.Orders
     public class OrderController : ControllerSoftBase
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderApplication _orderApplication;
+
         public OrderController(IMapper mapper,
-                               IOrderService orderService) : base(mapper)
+                               IOrderService orderService,
+                               IOrderApplication orderApplication) : base(mapper)
         {
             _orderService = orderService;
+            _orderApplication = orderApplication;
         }
 
         [HttpPost]
@@ -85,6 +91,14 @@ namespace ChoppSoft.Api.Controllers.Orders
         public async Task<IActionResult> RemoveItems([FromRoute] Guid id, [FromBody] ICollection<OrderItemIdDto> dtos)
         {
             var response = await _orderService.RemoveItems(id, dtos);
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{id:Guid}/Process")]
+        public async Task<IActionResult> Process([FromRoute] Guid id, [FromBody] OrderProcessDto dto)
+        {
+            var response = await _orderApplication.Process(id, dto);
 
             return ReturnBase(response);
         }

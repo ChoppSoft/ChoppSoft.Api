@@ -61,13 +61,15 @@ namespace ChoppSoft.Domain.Models.Orders
 
         internal void Totalizing() => TotalAmount = Items.Sum(p => p.TotalPrice).ToMonetary();
 
+        public void MakeAsProcessing() => Status = EnumOrderStatus.Processing;
+
         internal void MakeAsConfirmed() => Status = EnumOrderStatus.Confirmed;
 
         internal void MakeAsCanceled() => Status = EnumOrderStatus.Cancelled;
 
         internal void UndoConfirme() => Status = EnumOrderStatus.Processing;
 
-        internal void MakeAsShipped() => Shipped = true;
+        public void MakeAsShipped() => Shipped = true;
 
         internal void UndoShipped() => Shipped = false;
 
@@ -75,7 +77,7 @@ namespace ChoppSoft.Domain.Models.Orders
 
         internal void UndoDelivered() => Delivered = false;
 
-        internal void MakeAsPaid() => Paid = true;
+        public void MakeAsPaid() => Paid = true;
 
         internal void UndoPaid() => Paid = false;
     }

@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ChoppSoft.Application\ChoppSoft.Application.csproj" />
 	  <ProjectReference Include="..\ChoppSoft.Domain\ChoppSoft.Domain.csproj" />
 	  <ProjectReference Include="..\ChoppSoft.Infra\ChoppSoft.Infra.csproj" />
 	  <ProjectReference Include="..\ChoppSoft.Repository\ChoppSoft.Repository.csproj" />

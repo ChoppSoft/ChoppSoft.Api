@@ -12,6 +12,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
         Task<ServiceResult> ChangeDeliveryDate(Guid id, OrderDeliveryDateDto dto);
         Task<ServiceResult> AddItems(Guid id, ICollection<OrderItemDto> dtos);
         Task<ServiceResult> RemoveItems(Guid id, ICollection<OrderItemIdDto> dtos);
+        Task<(bool isValid, ICollection<string> errorMsgs)> ProcessValidation(Order order);
         Task<ServiceResult> Confirm(Guid id);
         Task<ServiceResult> UndoConfirmation(Guid id);
         Task<ServiceResult> Cancel(Guid id);

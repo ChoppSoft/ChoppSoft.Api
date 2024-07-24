@@ -9,7 +9,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
     public sealed class Delivery : Entity
     {
         public Delivery(Guid orderId, 
-                        Guid resourceId, 
+                        Guid? resourceId, 
                         DateTime scheduledDate, 
                         DateTime? deliveryDate)
         {
@@ -22,7 +22,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
         public Delivery() { }
 
         public Guid OrderId { get; private set; }
-        public Guid ResourceId { get; private set; }
+        public Guid? ResourceId { get; private set; }
         public DateTime ScheduledDate { get; private set; }
         public DateTime? DeliveryDate { get; private set; }
         public EnumDeliveryStatus Status { get; private set; }
