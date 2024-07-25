@@ -25,5 +25,12 @@ namespace ChoppSoft.Infra.Extensions
 
             return JsonConvert.DeserializeObject<List<Filter>>(filters);
         }
+
+        public static Ordenation CreateOrderBy(this string orderby)
+        {
+            if(string.IsNullOrWhiteSpace(orderby)) return null;
+
+            return JsonConvert.DeserializeObject<Ordenation>(orderby);
+        }
     }
 }

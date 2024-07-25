@@ -19,14 +19,15 @@ namespace ChoppSoft.Domain.Models.Products.Services
                                       dto.description,
                                       dto.brand,
                                       dto.capacity,
-            dto.price);
-
-            await _productRepository.Add(product);
+                                      dto.price,
+                                      dto.cost);
 
             var validationResult = new ProductCreateValidator().Validate(product);
 
             if (!validationResult.IsValid)
                 return ServiceResult.Failed(validationResult.Errors.Select(e => e.ErrorMessage).ToList());
+
+            await _productRepository.Add(product);
 
             return ServiceResult.Successful(new
             {

@@ -34,6 +34,7 @@ namespace ChoppSoft.Repository.Repositories
         public virtual async Task<ICollection<TEntity>> GetAllWithFilters(QueryParams queryParams, params string[] includes)
         {
             var filters = queryParams.Filters.CreateFilters();
+            var ordenation = queryParams.OrderBy.CreateOrderBy();
 
             IQueryable<TEntity> query = _dbSetEntity;
 
@@ -68,6 +69,20 @@ namespace ChoppSoft.Repository.Repositories
 
                 var lambda = Expression.Lambda<Func<TEntity, bool>>(combined, parameter);
                 query = query.Where(lambda);
+            }
+
+            if(ordenation is not null)
+            {
+                var parameter = Expression.Parameter(typeof(TEntity), "e");
+                var orderByProperty = Expression.Property(parameter, ordenation.PropertyName);
+                var orderByLambda = Expression.Lambda<Func<TEntity, object>>(Expression.Convert(orderByProperty, typeof(object)), parameter);
+
+                if (ordenation is not null)
+                {
+                    query = ordenation.Direction == EnumOrderByDirection.Desc ? 
+                            query.OrderByDescending(orderByLambda) : 
+                            query = query.OrderBy(orderByLambda);
+                }
             }
 
             return await query.AsNoTracking()

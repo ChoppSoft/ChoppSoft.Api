@@ -40,5 +40,7 @@ namespace ChoppSoft.Domain.Models.Deliveries
         }
 
         internal void PlannedRoute() => Planned = true;
+
+        internal void SetStatus(EnumDeliveryStatus status) => Status = status;
     }
 }

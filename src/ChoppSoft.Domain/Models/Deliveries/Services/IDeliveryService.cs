@@ -1,4 +1,5 @@
-﻿using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
+﻿using ChoppSoft.Domain.Models.Deliveries.Enums;
+using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
 using ChoppSoft.Infra.Bases;
 
 namespace ChoppSoft.Domain.Models.Deliveries.Services
@@ -11,6 +12,7 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
         Task<ServiceResult> GetById(Guid id);
         Task<ServiceResult> Active(Guid id);
         Task<ServiceResult> Inactivate(Guid id);
+        Task<ServiceResult> SetStatus(Guid id, EnumDeliveryStatus status);
         Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize);
     }
 }

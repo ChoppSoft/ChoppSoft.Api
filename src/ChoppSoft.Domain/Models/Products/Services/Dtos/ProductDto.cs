@@ -4,5 +4,6 @@
                              string description,
                              string brand,
                              decimal capacity,
-                             decimal price);
+                             decimal price,
+                             decimal cost);
 }

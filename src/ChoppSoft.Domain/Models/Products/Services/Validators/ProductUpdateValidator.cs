@@ -23,12 +23,12 @@ namespace ChoppSoft.Domain.Models.Products.Services.Validators
 
             RuleFor(product => product.Capacity)
                 .NotNull()
-                .LessThanOrEqualTo(0)
+                .GreaterThan(0)
                 .WithMessage("O produto precisa conter uma capacidade maior que zero.");
 
             RuleFor(product => product.Capacity)
                 .NotNull()
-                .LessThanOrEqualTo(0)
+                .GreaterThan(0)
                 .WithMessage("O produto precisa conter um preço de venda maior que zero.");
         }
     }

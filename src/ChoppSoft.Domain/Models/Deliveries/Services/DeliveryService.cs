@@ -1,4 +1,5 @@
 ﻿using ChoppSoft.Domain.Interfaces.Deliveries;
+using ChoppSoft.Domain.Models.Deliveries.Enums;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
 using ChoppSoft.Domain.Models.Deliveries.Services.Validators;
 using ChoppSoft.Infra.Bases;
@@ -104,6 +105,26 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
             {
                 DeliveryId = delivery.Id,
                 Message = "Entrega desabilitada com sucesso."
+            });
+        }
+
+        public async Task<ServiceResult> SetStatus(Guid id, EnumDeliveryStatus status)
+        {
+            var delivery = await _deliveryRepository.GetById(id);
+
+            if (delivery is null)
+                return ServiceResult.Failed($"Não foi possível encontrar a entrega de código {id}");
+
+            //validar etapa
+
+            delivery.SetStatus(status);
+
+            await _deliveryRepository.Update(delivery);
+
+            return ServiceResult.Successful(new
+            {
+                DeliveryId = delivery.Id,
+                Message = "Etapa alterada com sucesso."
             });
         }
 

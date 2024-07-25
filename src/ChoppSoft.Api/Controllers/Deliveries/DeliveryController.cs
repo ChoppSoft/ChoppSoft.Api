@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ChoppSoft.Api.ViewModels;
+using ChoppSoft.Domain.Models.Deliveries.Enums;
 using ChoppSoft.Domain.Models.Deliveries.Services;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
 using ChoppSoft.Infra.Bases;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Deliveries
@@ -11,7 +13,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
     {
         private readonly IDeliveryService _deliveryService;
         public DeliveryController(IMapper mapper,
-                                   IDeliveryService deliveryService) : base(mapper)
+                                  IDeliveryService deliveryService) : base(mapper)
         {
             _deliveryService = deliveryService;
         }
@@ -52,7 +54,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/MakeAsCollecting")]
         public async Task<IActionResult> MakeAsCollecting([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Collecting);
 
             return ReturnBase(response);
         }
@@ -60,7 +62,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/UndoCollecting")]
         public async Task<IActionResult> UndoCollecting([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Scheduled);
 
             return ReturnBase(response);
         }
@@ -68,7 +70,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/MakeAsCollectingFinished")]
         public async Task<IActionResult> MakeAsCollectingFinished([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.CollectFinished);
 
             return ReturnBase(response);
         }
@@ -76,7 +78,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/UndoCollectingFinished")]
         public async Task<IActionResult> UndoCollectingFinished([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Collecting);
 
             return ReturnBase(response);
         }
@@ -84,7 +86,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/MakeAsInProgess")]
         public async Task<IActionResult> MakeAsInProgess([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.InProgress);
 
             return ReturnBase(response);
         }
@@ -92,7 +94,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/UndoInProgess")]
         public async Task<IActionResult> UndoInProgess([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.CollectFinished);
 
             return ReturnBase(response);
         }
@@ -100,7 +102,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/MakeAsInConference")]
         public async Task<IActionResult> MakeAsInConference([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Conference);
 
             return ReturnBase(response);
         }
@@ -108,7 +110,7 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/UndoInConference")]
         public async Task<IActionResult> UndoInConference([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.InProgress);
 
             return ReturnBase(response);
         }
@@ -116,7 +118,31 @@ namespace ChoppSoft.Api.Controllers.Deliveries
         [HttpPut("{id:Guid}/MakeAsComplete")]
         public async Task<IActionResult> MakeAsComplete([FromRoute] Guid id)
         {
-            var response = ServiceResult.Successful();
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Completed);
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{id:Guid}/UndoComplete")]
+        public async Task<IActionResult> UndoComplete([FromRoute] Guid id)
+        {
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Conference);
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{id:Guid}/MakeAsFail")]
+        public async Task<IActionResult> MakeAsFail([FromRoute] Guid id)
+        {
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.Failed);
+
+            return ReturnBase(response);
+        }
+
+        [HttpPut("{id:Guid}/UndoFail")]
+        public async Task<IActionResult> UndoFail([FromRoute] Guid id)
+        {
+            var response = await _deliveryService.SetStatus(id, EnumDeliveryStatus.InProgress);
 
             return ReturnBase(response);
         }

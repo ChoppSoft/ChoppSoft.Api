@@ -14,5 +14,8 @@ namespace ChoppSoft.Api.ViewModels
         public Guid? WarehouseId { get; set; }
         public string WarehouseDescription { get; set; }
         public bool Active { get; set; }
+        public decimal Cost { get; set; }
+        public decimal Profit { get; set; }
+        public decimal Margin { get; set; }
     }
 }
