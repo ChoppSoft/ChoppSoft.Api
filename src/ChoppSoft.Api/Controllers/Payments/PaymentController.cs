@@ -8,10 +8,10 @@ namespace ChoppSoft.Api.Controllers.Payments
 {
     public class PaymentController : ControllerSoftBase
     {
-        private readonly PaymentService _paymentService;
+        private readonly IPaymentService _paymentService;
 
         public PaymentController(IMapper mapper, 
-                                 PaymentService paymentService) : base(mapper)
+                                 IPaymentService paymentService) : base(mapper)
         {
             _paymentService = paymentService;
         }

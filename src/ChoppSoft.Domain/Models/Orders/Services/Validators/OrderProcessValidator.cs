@@ -17,7 +17,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services.Validators
 
             RuleFor(order => order.AddressId)
                 .NotNull()
-                .WithMessage("Deve informar um e-mail para processar o pedido.");
+                .WithMessage("Deve informar um endereço para processar o pedido.");
 
             RuleFor(order => order.Paid)
                 .Equal(false)

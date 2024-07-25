@@ -80,5 +80,7 @@ namespace ChoppSoft.Domain.Models.Orders
         public void MakeAsPaid() => Paid = true;
 
         internal void UndoPaid() => Paid = false;
+
+        public void SetAddress(Guid id) => AddressId = id;
     }
 }

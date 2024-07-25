@@ -34,16 +34,22 @@ namespace ChoppSoft.Application.Applications.Orders
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
+            order.SetAddress(dto.AddressId);
+
             var validator = await _orderService.ProcessValidation(order);
 
             if (!validator.isValid)
                 return ServiceResult.Failed("A validação falhou", validator.errorMsgs);
 
-            await _paymentRepository.Add(new Payment(order.Id,
-                                                     dto.payment.method,
-                                                     dto.payment.typediscount,
-                                                     dto.payment.discount,
-                                                     dto.payment.expenses));
+            var payment = new Payment(order.Id,
+                                      dto.payment.method,
+                                      dto.payment.typediscount,
+                                      dto.payment.discount,
+                                      dto.payment.expenses);
+
+            payment.SetAmont(order.TotalAmount);
+
+            await _paymentRepository.Add(payment);
 
             order.MakeAsPaid();
 

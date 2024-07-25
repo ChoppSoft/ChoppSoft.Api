@@ -34,7 +34,7 @@ namespace ChoppSoft.Domain.Models.Payments
 
         public Order Order { get; private set; }
 
-        internal void SetAmont(decimal amount)
+        public void SetAmont(decimal amount)
         {
             Amount = amount + Expenses - Discount;
         }
