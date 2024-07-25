@@ -71,7 +71,7 @@ namespace ChoppSoft.Repository.Repositories
                 query = query.Where(lambda);
             }
 
-            if(ordenation is not null)
+            if (ordenation is not null)
             {
                 var parameter = Expression.Parameter(typeof(TEntity), "e");
                 var orderByProperty = Expression.Property(parameter, ordenation.PropertyName);
@@ -79,8 +79,8 @@ namespace ChoppSoft.Repository.Repositories
 
                 if (ordenation is not null)
                 {
-                    query = ordenation.Direction == EnumOrderByDirection.Desc ? 
-                            query.OrderByDescending(orderByLambda) : 
+                    query = ordenation.Direction == EnumOrderByDirection.Desc ?
+                            query.OrderByDescending(orderByLambda) :
                             query = query.OrderBy(orderByLambda);
                 }
             }
