@@ -26,7 +26,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
         public async Task<ServiceResult> GetById(Guid id)
         {
-            var order = await _orderRepository.GetByIdAsync(id, "Customer", "Items");
+            var order = await _orderRepository.GetByIdAsync(id, "Customer", "Items", "Items.Product");
 
             return ServiceResult.Successful(order);
         }
@@ -108,14 +108,21 @@ namespace ChoppSoft.Domain.Models.Orders.Services
             if (!validationResult.IsValid)
                 return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
 
-            order.AddItems(dtos.Select(p => new OrderItem(id,
-                                                          p.productid,
-                                                          p.quantity,
-                                                          p.unitprice)).ToList());
+            var existingProductIds = order.Items.Select(i => i.ProductId).ToHashSet();
+
+            var newItems = dtos
+                .Where(p => !existingProductIds.Contains(p.productid))
+                .Select(p => new OrderItem(id, p.productid, p.quantity, p.unitprice))
+                .ToList();
+
+            if (!newItems.Any())
+                return ServiceResult.Failed("Todos os itens já estão presentes no pedido.");
+
+            order.AddItems(newItems);
 
             order.Totalizing();
 
-            await _orderItemRepository.AddRange(order.Items);
+            await _orderItemRepository.AddRange(newItems);
             await _orderRepository.Update(order);
 
             return ServiceResult.Successful(new
