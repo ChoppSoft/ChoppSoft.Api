@@ -201,10 +201,13 @@ namespace ChoppSoft.Repository.Repositories
 
         public virtual async Task DeleteRange(ICollection<Guid> ids)
         {
-            var entities = await _dbSetEntity.FindAsync(ids);
+            var entities = await _dbSetEntity.Where(e => ids.Contains(e.Id)).ToListAsync();
+
+            if (!entities.Any()) return;
 
             _dbSetEntity.RemoveRange(entities);
             await SaveChanges();
+
         }
 
         public async Task<int> TotalCount()

@@ -134,7 +134,7 @@ namespace ChoppSoft.Domain.Models.Orders.Services
 
         public async Task<ServiceResult> RemoveItems(Guid id, ICollection<OrderItemIdDto> dtos)
         {
-            var order = await _orderRepository.GetByIdAsync(id, "Items");
+            var order = await _orderRepository.GetByIdAsync(id);
 
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
@@ -145,12 +145,10 @@ namespace ChoppSoft.Domain.Models.Orders.Services
                 return ServiceResult.Failed("A validação falhou.", validationResult.Errors?.Select(e => e.ErrorMessage).ToList());
 
             var orderItemsId = dtos.Select(p => p.id).ToList();
-            var orderItems = await _orderItemRepository.Get(p => orderItemsId.Contains(p.Id));
-
-            order.RemoveItems(orderItems);
 
             await _orderItemRepository.DeleteRange(orderItemsId);
 
+            order = await _orderRepository.GetByIdAsync(id, "Items");
             order.Totalizing();
 
             await _orderRepository.Update(order);
