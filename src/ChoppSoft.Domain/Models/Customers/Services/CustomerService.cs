@@ -15,9 +15,9 @@ namespace ChoppSoft.Domain.Models.Customers.Services
 
         public async Task<ServiceResult> Create(CustomerDto dto)
         {
-            async Task<bool> BeUniqueDocumentAsync(string document) => 
+            async Task<bool> BeUniqueDocumentAsync(string document) =>
                 !(await _customerRepository.AnyAsync(c => c.Document == document));
-            
+
             var customer = new Customer(dto.name, dto.document, dto.documenttype, dto.phonenumber, dto.email, dto.dateofbirth);
 
             var validationResult = await new CustomerCreateValidator(BeUniqueDocumentAsync).ValidateAsync(customer);
@@ -105,6 +105,21 @@ namespace ChoppSoft.Domain.Models.Customers.Services
                 CustomerId = customer.Id,
                 Message = "Cliente desabilitado com sucesso."
             });
+        }
+
+        public async Task<ServiceResult> BirthdaysOfTheMonth()
+        {
+            var customers = await _customerRepository.Get(p => p.DateOfBirth.Month == DateTime.Now.Month && 
+                                                               p.DateOfBirth.Day >= DateTime.Now.Day);
+
+            return ServiceResult.Successful(customers.Select(p => new
+            {
+                Name = p.Name,
+                Birthday = p.BirthDay,
+                Age = DateTime.Now.Year - p.DateOfBirth.Year,
+                IsToday = p.BirthDay == DateTime.Now.Date,
+            }).OrderBy(p => p.Birthday)
+              .ToList());
         }
 
         public async Task<(int TotalCount, int TotalPages)> GetPagination(int pageSize)

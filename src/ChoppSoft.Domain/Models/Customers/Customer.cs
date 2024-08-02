@@ -7,11 +7,11 @@ namespace ChoppSoft.Domain.Models.Customers
 {
     public sealed class Customer : Entity
     {
-        public Customer(string name, 
-                        string document, 
-                        EnumDocumentType documentType, 
-                        string phoneNumber, 
-                        string email, 
+        public Customer(string name,
+                        string document,
+                        EnumDocumentType documentType,
+                        string phoneNumber,
+                        string email,
                         DateTime dateOfBirth)
         {
             Name = name;
@@ -32,6 +32,7 @@ namespace ChoppSoft.Domain.Models.Customers
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public DateTime DateOfBirth { get; private set; }
+        public DateTime BirthDay => new DateTime(DateTime.Now.Year, DateOfBirth.Month, DateOfBirth.Day).Date;
 
         public ICollection<Address> Addresses { get; set; }
 

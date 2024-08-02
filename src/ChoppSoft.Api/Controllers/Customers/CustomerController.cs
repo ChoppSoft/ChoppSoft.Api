@@ -65,5 +65,13 @@ namespace ChoppSoft.Api.Controllers.Customers
 
             return ReturnBase(response);
         }
+
+        [HttpGet("/BirthdaysOfTheMonth")]
+        public async Task<IActionResult> BirthdaysOfTheMonth()
+        {
+            var response = await _customerService.BirthdaysOfTheMonth();
+
+            return ReturnBase(response);
+        }
     }
 }

@@ -26,6 +26,8 @@ namespace ChoppSoft.Repository.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(50)");
 
+            builder.Ignore(x => x.BirthDay);
+
             builder.HasMany(x => x.Addresses)
                    .WithOne(x => x.Customer)
                    .HasForeignKey(x => x.CustomerId);
