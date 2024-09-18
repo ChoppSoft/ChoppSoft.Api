@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ChoppSoft.Api.ViewModels;
-using ChoppSoft.Domain.Models.Customers;
 using ChoppSoft.Domain.Models.Customers.Services;
 using ChoppSoft.Domain.Models.Customers.Services.Dtos;
 using ChoppSoft.Infra.Bases;
