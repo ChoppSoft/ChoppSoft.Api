@@ -4,7 +4,6 @@ using ChoppSoft.Domain.Models.Deliveries.Enums;
 using ChoppSoft.Domain.Models.Deliveries.Services;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
 using ChoppSoft.Infra.Bases;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChoppSoft.Api.Controllers.Deliveries

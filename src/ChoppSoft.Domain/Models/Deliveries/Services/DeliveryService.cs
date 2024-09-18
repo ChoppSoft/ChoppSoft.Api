@@ -1,4 +1,5 @@
 ﻿using ChoppSoft.Domain.Interfaces.Deliveries;
+using ChoppSoft.Domain.Interfaces.Orders;
 using ChoppSoft.Domain.Models.Deliveries.Enums;
 using ChoppSoft.Domain.Models.Deliveries.Services.Dtos;
 using ChoppSoft.Domain.Models.Deliveries.Services.Validators;
@@ -9,9 +10,11 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
     public class DeliveryService : IDeliveryService
     {
         private readonly IDeliveryRepository _deliveryRepository;
-        public DeliveryService(IDeliveryRepository deliveryRepository)
+        private readonly IOrderRepository _orderRepository;
+        public DeliveryService(IDeliveryRepository deliveryRepository, IOrderRepository orderRepository)
         {
             _deliveryRepository = deliveryRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task<ServiceResult> Create(DeliveryDto dto)
@@ -62,7 +65,7 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
         {
             var deliverys = await _deliveryRepository.GetAllWithFilters(query, "Order", "Resource");
 
-            return ServiceResult.Successful(deliverys);
+            return ServiceResult.Successful(deliverys.OrderBy(x => x.DeliveryDate));
         }
 
         public async Task<ServiceResult> GetById(Guid id)
@@ -115,11 +118,18 @@ namespace ChoppSoft.Domain.Models.Deliveries.Services
             if (delivery is null)
                 return ServiceResult.Failed($"Não foi possível encontrar a entrega de código {id}");
 
+            var order = await _orderRepository.GetById(delivery.OrderId);
+
             //validar etapa
 
             delivery.SetStatus(status);
 
             await _deliveryRepository.Update(delivery);
+
+            order.MakeAsDelivered();
+            order.MakeAsConfirmed();
+
+            await _orderRepository.Update(order);
 
             return ServiceResult.Successful(new
             {

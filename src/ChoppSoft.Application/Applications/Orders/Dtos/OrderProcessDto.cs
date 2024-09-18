@@ -3,5 +3,5 @@ using ChoppSoft.Domain.Models.Payments.Services.Dtos;
 
 namespace ChoppSoft.Application.Applications.Orders.Dtos
 {
-    public record OrderProcessDto(PaymentDto payment, DeliveryDto delivery, Guid AddressId);
+    public record OrderProcessDto(PaymentDto payment, DeliveryDto delivery, Guid addressId);
 }

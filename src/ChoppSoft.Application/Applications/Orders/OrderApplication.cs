@@ -34,7 +34,7 @@ namespace ChoppSoft.Application.Applications.Orders
             if (order is null)
                 return ServiceResult.Failed($"Não foi possível encontrar o pedido de código {id}");
 
-            order.SetAddress(dto.AddressId);
+            order.SetAddress(dto.addressId);
 
             var validator = await _orderService.ProcessValidation(order);
 
